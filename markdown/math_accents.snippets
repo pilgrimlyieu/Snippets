@@ -39,22 +39,22 @@ endsnippet
 # √: \bar{a}_{\alpha}       --> \overline{a}_{\alpha}
 # ×: \bar{a}_{\dfrac{1}{2}} --> \overline{a}_{\dfrac{1}{2}}
 context "math()"
-snippet "(\\bar|\\overline)(\{[\\a-zA-Z]+\s?\})([_^](?:[\da-zA-Z]|\{[\\\w\d\s]+\}))?" "拔 Bar" r
+snippet "(\\bar|\\overline)(\{[\\a-zA-Z]+\s?\})((?:[_^](?:[\da-zA-Z]|\{[\\\w\d\s]+\}))?)" "拔 Bar" r
 `!p
-snip.rv = choose_next(match.group(1), bars, 2) + match.group(2) + (match.group(3) or '')
+snip.rv = choose_next(match.group(1), bars, 2) + match.group(2) + match.group(3)
 `
 endsnippet
 
 context "math()"
-snippet "(\\hat|\\widehat)(\{[\\a-zA-Z]+\s?\})([_^](?:[\da-zA-Z]|\{[\\\w\d\s]+\}))?" "帽 Hat" r
+snippet "(\\hat|\\widehat)(\{[\\a-zA-Z]+\s?\})((?:[_^](?:[\da-zA-Z]|\{[\\\w\d\s]+\}))?)" "帽 Hat" r
 `!p
-snip.rv = choose_next(match.group(1), hats, 2) + match.group(2) + (match.group(3) or '')
+snip.rv = choose_next(match.group(1), hats, 2) + match.group(2) + match.group(3)
 `
 endsnippet
 
 context "math()"
-snippet "(\\vec|\\overrightarrow)(\{[\\0a-zA-Z]+\s?\})([_^](?:[\da-zA-Z]|\{[\\\w\d\s]+\}))?" "向量 Vector" r
+snippet "(\\vec|\\overrightarrow)(\{[\\0a-zA-Z]+\s?\})((?:[_^](?:[\da-zA-Z]|\{[\\\w\d\s]+\}))?)" "向量 Vector" r
 `!p
-snip.rv = choose_next(match.group(1), vecs, 2) + match.group(2) + (match.group(3) or '')
+snip.rv = choose_next(match.group(1), vecs, 2) + match.group(2) + match.group(3)
 `
 endsnippet
