@@ -15,11 +15,17 @@ snippet // "分数 Fraction" wA
 \dfrac{${1:${VISUAL}}}{$2}$0
 endsnippet
 
+# 支持数字、（数字或字母加）字母或字符命令（加上下标）与阶乘等
+# Support number, (number or letter add) letter or string command (add superscript or subscript) and factorial
+# 字符命令指的是 '\alpha' 等
+# String command refers to as '\alpha' and so on
 context "math()"
-snippet "(\d+|\d*\\?[A-Za-z]+(?:[_^](?:\{\S+\s?\}|\d))*|[a-zA-Z0-9]+!)/" "简单分数 Simple Fraction" rA
+snippet "(\d+|[\da-zA-Z]*\\?[A-Za-z]+([_^](\{\S+\s?\}|[\da-zA-Z]))*|[\da-zA-Z]+!)/" "简单分数 Simple Fraction" rA
 \dfrac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
 
+# 已知问题：#1
+# Known issue: #1
 context "math()"
 snippet "^.*\)/" "大型括号分数 Large Bracket Fraction" rA
 `!p
@@ -30,11 +36,10 @@ for i in range(len(string) - 1, -1, -1):
 	elif string[i] == '(': depth -= 1
 	if not depth: break
 snip.rv = string[:i] + "\\dfrac{" + string[i + 1:-1] + "}"
-# 已知问题：')/' 会被展开成 '\dfrac{}{<cursor>}'
-# Known issue: ')/' will be expanded to '\dfrac{}{<cursor>}'
 `{$1}$0
 endsnippet
 
+# frac <-> dfrac
 context "math()"
 snippet "(\\(?:frac|dfrac)\{.*\}\{.*\})" "分式变形 Fraction Transformation" r
 `!p
