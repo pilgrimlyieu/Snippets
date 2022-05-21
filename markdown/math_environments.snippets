@@ -6,17 +6,23 @@ def inline_environment(snip, env = '', option = ''):
 	before_text = snip.buffer[snip.line][:snip.snippet_start[1]]
 	after_text = snip.buffer[snip.line][snip.snippet_end[1]:]
 	snip.buffer[snip.line] = ''
-	anon_snippet = before_text + '\\begin{' + (env or '${1:environment}') + '}' + ('${2:{${3:' + option + '}}}' if option else '') + ' ${4:${VISUAL}} \\end{' + (env or '$1') + '}$0' + after_text
+	anon_snippet = before_text + '\\begin{' + (env or '${1:environment}') + '}' + ('{${2:' + option + '}}' if option else '') + ' ${3:${VISUAL}} \\end{' + (env or '$1') + '}$0' + after_text
 	snip.expand_anon(anon_snippet)
 
 def display_environment(snip, env = '', option = ''):
 	before_text = snip.buffer[snip.line][:snip.snippet_start[1]]
 	after_text = snip.buffer[snip.line][snip.snippet_end[1]:]
 	snip.buffer[snip.line] = ''
-	anon_snippet = before_text + '\\begin{' + (env or '${1:environment}') + '}' + ('${2:{${3:' + option + '}}}' if option else '') + '\n    ${4:${VISUAL}}\n\\end{' + (env or '$1') + '}\n$0' + after_text
+	anon_snippet = before_text + '\\begin{' + (env or '${1:environment}') + '}' + ('{${2:' + option + '}}' if option else '') + '\n    ${3:${VISUAL}}\n\\end{' + (env or '$1') + '}\n$0' + after_text
 	snip.expand_anon(anon_snippet)
 
 endglobal
+
+################################################################
+#                                                              #
+#                         Environments                         #
+#                                                              #
+################################################################
 
 post_jump "inline_environment(snip)"
 context "inline_math()"

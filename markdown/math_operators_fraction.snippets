@@ -1,6 +1,7 @@
 global !p
 
 from markdown_scopes import math
+from markdown_cmdsub import command_cycle
 
 endglobal
 
@@ -41,18 +42,9 @@ endsnippet
 
 # frac <-> dfrac
 context "math()"
-snippet "(\\(?:frac|dfrac)\{.*\}\{.*\})" "分式变形 Fraction Transformation" r
+snippet "(\\(frac|dfrac)\{.*\}\{.*\})" "分式变形 Fraction Transformation" r
 `!p
-string = list(match.group(1).replace('\\frac', 'Ⱆ').replace('\\dfrac', 'Ⱉ'))
-i = len(string) - 1
-depth = brackets = 0
-for i in range(len(string) - 1, -1, -1):
-    if string[i] == '}': depth += 1
-    elif string[i] == '{': depth -= 1
-    elif brackets == 2 and not depth:
-        if string[i] == 'Ⱆ': string[i] = 'Ⱉ'; break
-        elif string[i] == 'Ⱉ': string[i] = 'Ⱆ'; break
-    brackets += 0 if depth else 1
-snip.rv = ''.join(string).replace('Ⱆ', '\\frac').replace('Ⱉ', '\\dfrac')
+array = ['\\frac', '\\dfrac']
+snip.rv = command_cycle(match.group(1), array, 2)
 `
 endsnippet

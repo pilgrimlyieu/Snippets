@@ -4,12 +4,13 @@ from builtin import choose_next
 from markdown_scopes import math
 
 def bar_hat_vec(target, word, subscript = ''):
-    return '\\' + target + '{' + ('\\' + word + 'math' if word in specific_bar_hat_vec else word) + '}' + (subscript or '')
+    return '\\' + target + '{' + ('\\' + word + 'math' if word in special_bar_hat_vec else word) + '}' + (subscript or '')
 
 def long_bar_hat_vec(target, word, subscript = ''):
     return map_bar_hat_vec[target] + '{' + word + '}' + (subscript or '')
 
-specific_bar_hat_vec = ["i", "j"]
+special_bar_hat_vec = ['i', 'j']
+special_hbar = ['\\bar{h}', '\\hbar']
 map_bar_hat_vec = {'bar': '\\overline', 'hat': '\\widehat', 'vec': '\\overrightarrow'}
 bars = ['\\bar', '\\overline']
 hats = ['\\hat', '\\widehat']
@@ -22,6 +23,14 @@ endglobal
 #                           Accents                            #
 #                                                              #
 ################################################################
+
+context "math()"
+snippet "(\\bar{h}|\\hbar)\\" "hbar" ir
+`!p
+snip.rv = choose_next(match.group(1), special_hbar, 2)
+`
+endsnippet
+
 
 context "math()"
 snippet "(\b[a-zA-Z0]|\\[a-zA-Z]+)([_^](?:\{\S+\s?\}|[\da-zA-Z]))?(bar|hat|vec)" "拔/帽/向量 Bar/Hat/Vector" Ar
