@@ -1,7 +1,7 @@
 global !p
 
 from builtin import choose_next
-from markdown_scopes import *
+from markdown_scopes import math
 
 def bar_hat_vec(target, word, subscript = ''):
     return '\\' + target + '{' + ('\\' + word + 'math' if word in specific_bar_hat_vec else word) + '}' + (subscript or '')

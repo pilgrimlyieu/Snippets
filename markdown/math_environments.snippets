@@ -1,0 +1,84 @@
+global !p
+
+from markdown_scopes import math, display_math, inline_math, chem, not_chem, unit, not_unit
+
+def inline_environment(snip, env = '', option = ''):
+	before_text = snip.buffer[snip.line][:snip.snippet_start[1]]
+	after_text = snip.buffer[snip.line][snip.snippet_end[1]:]
+	snip.buffer[snip.line] = ''
+	anon_snippet = before_text + '\\begin{' + (env or '${1:environment}') + '}' + ('${2:{${3:' + option + '}}}' if option else '') + ' ${4:${VISUAL}} \\end{' + (env or '$1') + '}$0' + after_text
+	snip.expand_anon(anon_snippet)
+
+def display_environment(snip, env = '', option = ''):
+	before_text = snip.buffer[snip.line][:snip.snippet_start[1]]
+	after_text = snip.buffer[snip.line][snip.snippet_end[1]:]
+	snip.buffer[snip.line] = ''
+	anon_snippet = before_text + '\\begin{' + (env or '${1:environment}') + '}' + ('${2:{${3:' + option + '}}}' if option else '') + '\n    ${4:${VISUAL}}\n\\end{' + (env or '$1') + '}\n$0' + after_text
+	snip.expand_anon(anon_snippet)
+
+endglobal
+
+post_jump "inline_environment(snip)"
+context "inline_math()"
+snippet env "环境 Environment" w
+endsnippet
+
+post_jump "display_environment(snip)"
+context "display_math()"
+snippet env "环境 Environment" w
+endsnippet
+
+post_jump "inline_environment(snip, option = 'option')"
+context "inline_math()"
+snippet envo "环境（选项） Environment(option)" w
+endsnippet
+
+post_jump "display_environment(snip, option = 'option')"
+context "display_math()"
+snippet envo "环境（选项） Environment(option)" w
+endsnippet
+
+post_jump "inline_environment(snip, 'cases')"
+context "inline_math()"
+snippet case "Cases 环境 Cases Environment" w
+endsnippet
+
+post_jump "display_environment(snip, 'cases')"
+context "display_math()"
+snippet case "Cases 环境 Cases Environment" w
+endsnippet
+
+post_jump "inline_environment(snip, 'aligned')"
+context "inline_math()"
+snippet align "Aligned 环境 Aligned Environment" w
+endsnippet
+
+post_jump "display_environment(snip, 'aligned')"
+context "display_math()"
+snippet align "Aligned 环境 Aligned Environment" w
+endsnippet
+
+context "math()"
+snippet "\\?\btext" "文本环境 Text Environment" r
+\text{$1}$0
+endsnippet
+
+context "math() and not_chem()"
+snippet "\\?\bce" "化学环境 Chemistry Environment" r
+\ce{$1}$0
+endsnippet
+
+context "math() and not_unit()"
+snippet "\\?\bpu" "单位环境 Unit Environment" r
+\pu{$1}$0
+endsnippet
+
+context "math()"
+snippet "\\?\btag" "标记 Tag" r
+\tag{$1}$0
+endsnippet
+
+context "display_math()"
+snippet cbox "定理盒子 Rule Box" w
+\fcolorbox{#ff69b4}{trasparent}{$$1$}$0
+endsnippet
