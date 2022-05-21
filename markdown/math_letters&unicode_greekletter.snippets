@@ -1,0 +1,33 @@
+global !p
+
+from builtin import choose_next
+from markdown_scopes import *
+
+special_letters = ['epsilon', 'phi']
+letter_prefix = ['\\', '\\var']
+
+endglobal
+
+################################################################
+#                                                              #
+#               Letters & Unicode - Greek Letter               #
+#                                                              #
+################################################################
+
+context "math()"
+snippet "(?<!\\)(alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|omicron|pi|rho|sigma|tau|upsilon|phi|chi|omega|varepsilon|varkappa|vartheta|varpi|varrho|varsigma|varphi)" "希腊字母 Greek Letter" Ar
+\\`!p snip.rv = ("var" if match.group(1) in special_letters else "") + match.group(1)` 
+endsnippet
+
+context "math()"
+snippet "(?<!\\)(Alpha|Beta|Gamma|Delta|Epsilon|Zeta|Eta|Theta|Iota|Kappa|Lambda|Mu|Nu|Xi|Omicron|Pi|Rho|Sigma|Tau|Upsilon|Phi|Chi|Psi|Omega)" "大写希腊字母 Uppercase Greek Letter" Ar
+\\`!p snip.rv = match.group(1)` 
+endsnippet
+
+priority 1
+context "math()"
+snippet "(\\var|\\)([eE]psilon|[tT]heta|[pP]hi|[pP]i|[sS]igma|[kK]appa)(\s)?" "希腊斜体 Greek Italic" r
+`!p
+snip.rv = choose_next(match.group(1), letter_prefix, 2) + match.group(2) + (match.group(3) or '')
+`
+endsnippet
