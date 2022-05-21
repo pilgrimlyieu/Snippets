@@ -1,0 +1,68 @@
+snippet type "片段类别 Snippet type" b
+################################################################
+#                                                              #
+#`!p
+string_length = len(t[1].encode('gbk')); front_num = (62 - string_length) // 2
+snip.rv = ' ' * front_num`$1`!p snip.rv = ' ' * (62 - front_num - string_length)`#
+#                                                              #
+################################################################
+$0
+endsnippet
+
+snippet txt "创建上下文 Create Contest" b
+context "${1|math,text,chem,display_math,inline_math,comment|}()"
+$0
+endsnippet
+
+snippet psj "post_jump" b
+post_jump "$1"
+$0
+endsnippet
+
+snippet pex "expand" b
+${1|pre_expand,post_expand|} "$2"
+$0
+endsnippet
+
+snippet pp "Pre" b
+${1|post_jump,pre_expand,post_expand|} "$2"
+$0
+endsnippet
+
+snippet snip "创建片段 Create Snippet" b
+snippet ${1:Trigger} "${2:Description}" ${3:w}`!p snip.rv = "r" if (t[1][:1] == "\"" and "r" not in t[3]) else ""`
+$5
+`echo endsnippet`
+$0
+endsnippet
+
+snippet rv "返回值 Return" w
+snip.rv = 
+endsnippet
+
+snippet m "匹配值 Match" w
+match.group(${1:1})$0
+endsnippet
+
+snippet t "TabStop" w
+t[${1:1}]$0
+endsnippet
+
+snippet tab "TabStop" w
+\${${1:1}${2::${3:}}}$0
+endsnippet
+
+snippet vis "Visual" w
+\${VISUAL}
+endsnippet
+
+snippet scr "脚本 Script" w
+\`${1:!p} $2\`$0
+endsnippet
+
+priority 1
+snippet scr "脚本 Script" b
+\`${1:!p}
+$2
+\`$0
+endsnippet

@@ -1,0 +1,111 @@
+global !p
+
+from markdown_scopes import *
+from markdown_text import *
+
+endglobal
+
+################################################################
+#                                                              #
+#                             TXET                             #
+#                                                              #
+################################################################
+
+# 支持自动添加空格（意外删除时可能出现 BUG）
+# Support automatically add space (may have BUG if you delete it accidenly)
+context "text()"
+snippet '(\W)lm|^lm' "行内公式 Inline Formula" rA
+`!p before = match.group(1) or ''; snip.rv = before + ('' if before in before_puncs else ' ')`$$1$`!p snip.rv = '' if t[2][:1] in after_puncs else ' '`$2
+endsnippet
+
+context "text()"
+snippet dm "行间公式 Display Formula" bA
+$$
+$1
+$$
+$0
+endsnippet
+
+context "text()"
+pre_expand "create_table(snip)"
+snippet '\btb([1-9]{2})' "普通表格 Table" br
+endsnippet
+
+context "text()"
+pre_expand "create_table(snip, 1)"
+snippet '\btbl([1-9]{2})' "靠左表格 Left Table" br
+endsnippet
+
+context "text()"
+pre_expand "create_table(snip, 2)"
+snippet '\btbr([1-9]{2})' "靠右表格 Right Table" br
+endsnippet
+
+context "text()"
+pre_expand "create_table(snip, 3)"
+snippet '\btbm([1-9]{2})' "居中表格 Center Table" br
+endsnippet
+
+context "text()"
+snippet link "链接 Link"
+[${1:${VISUAL}}](${2:https://${3:}})$0
+endsnippet
+
+context "text()"
+snippet img "图像 Image"
+![](${2:images/${3:${VISUAL}}})$0
+endsnippet
+
+context "text()"
+snippet ` "行内代码 Inline Code"
+\`${1:${VISUAL}}\`$0
+endsnippet
+
+context "text()"
+snippet code "代码 Code Block" b
+\`\`\`$1
+${2:${VISUAL}}
+\`\`\`
+$0
+endsnippet
+
+context "text()"
+snippet fnt "脚注 FootNote"
+[^${1:${VISUAL}}]$0
+endsnippet
+
+context "text()"
+snippet detail "详情 Disclosure"
+<details>
+${1:<summary>${2}</summary>}
+
+$3
+
+</details>
+$0
+endsnippet
+
+context "text()"
+snippet * "斜体 Italics"
+*${1:${VISUAL}}*$0
+endsnippet
+
+context "text()"
+snippet ** "粗体 Bold"
+**${1:${VISUAL}}**$0
+endsnippet
+
+context "text()"
+snippet *** "粗斜体 Bold Italics"
+***${1:${VISUAL}}***$0
+endsnippet
+
+context "text()"
+snippet /. "注释 Comment"
+<!-- ${1:${VISUAL}} -->$0
+endsnippet
+
+context "text()"
+snippet '^#([3-6])' "段落 Paragraph" rA
+`!p snip.rv = '#' * int(match.group(1))` 
+endsnippet

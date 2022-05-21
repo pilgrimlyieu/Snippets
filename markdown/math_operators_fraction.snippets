@@ -1,0 +1,53 @@
+global !p
+
+from markdown_scopes import *
+
+endglobal
+
+################################################################
+#                                                              #
+#                     Operators - Fraction                     #
+#                                                              #
+################################################################
+
+context "math()"
+snippet // "分数 Fraction" wA
+\dfrac{${1:${VISUAL}}}{$2}$0
+endsnippet
+
+context "math()"
+snippet "(\d+|\d*\\?[A-Za-z]+(?:[_^](?:\{\S+\s?\}|\d))*|[a-zA-Z0-9]+!)/" "简单分数 Simple Fraction" rA
+\dfrac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
+
+context "math()"
+snippet "^.*\)/" "大型括号分数 Large Bracket Fraction" rA
+`!p
+string = match.string[:-1]
+depth = 0
+for i in range(len(string) - 1, -1, -1):
+	if string[i] == ')': depth += 1
+	elif string[i] == '(': depth -= 1
+	if not depth: break
+snip.rv = string[:i] + "\\dfrac{" + string[i + 1:-1] + "}"
+# 已知问题：')/' 会被展开成 '\dfrac{}{<cursor>}'
+# Known issue: ')/' will be expanded to '\dfrac{}{<cursor>}'
+`{$1}$0
+endsnippet
+
+context "math()"
+snippet "(\\(?:frac|dfrac)\{.*\}\{.*\})" "分式变形 Fraction Transformation" r
+`!p
+string = list(match.group(1).replace('\\frac', 'Ⱆ').replace('\\dfrac', 'Ⱉ'))
+i = len(string) - 1
+depth = brackets = 0
+for i in range(len(string) - 1, -1, -1):
+    if string[i] == '}': depth += 1
+    elif string[i] == '{': depth -= 1
+    elif brackets == 2 and not depth:
+        if string[i] == 'Ⱆ': string[i] = 'Ⱉ'; break
+        elif string[i] == 'Ⱉ': string[i] = 'Ⱆ'; break
+    brackets += 0 if depth else 1
+snip.rv = ''.join(string).replace('Ⱆ', '\\frac').replace('Ⱉ', '\\dfrac')
+`
+endsnippet
