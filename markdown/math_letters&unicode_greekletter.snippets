@@ -15,12 +15,12 @@ endglobal
 ################################################################
 
 context "math()"
-snippet "(?<!\\)(alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|omicron|pi|rho|sigma|tau|upsilon|phi|chi|omega|varepsilon|varkappa|vartheta|varpi|varrho|varsigma|varphi)" "希腊字母 Greek Letter" Ar
+snippet "(?<!\\)\b(alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|omicron|pi|rho|sigma|tau|upsilon|phi|chi|omega|varepsilon|varkappa|vartheta|varpi|varrho|varsigma|varphi)" "希腊字母 Greek Letter" Ar
 \\`!p snip.rv = ("var" if match.group(1) in special_letters else "") + match.group(1)` 
 endsnippet
 
 context "math()"
-snippet "(?<!\\)(Alpha|Beta|Gamma|Delta|Epsilon|Zeta|Eta|Theta|Iota|Kappa|Lambda|Mu|Nu|Xi|Omicron|Pi|Rho|Sigma|Tau|Upsilon|Phi|Chi|Psi|Omega)" "大写希腊字母 Uppercase Greek Letter" Ar
+snippet "(?<!\\)\b(Alpha|Beta|Gamma|Delta|Epsilon|Zeta|Eta|Theta|Iota|Kappa|Lambda|Mu|Nu|Xi|Omicron|Pi|Rho|Sigma|Tau|Upsilon|Phi|Chi|Psi|Omega)" "大写希腊字母 Uppercase Greek Letter" Ar
 \\`!p snip.rv = match.group(1)` 
 endsnippet
 
