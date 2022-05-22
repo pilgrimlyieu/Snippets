@@ -1,7 +1,7 @@
 global !p
 
-from markdown_scopes import math
-from markdown_cmdsub import command_cycle
+from markdown_scopes import math, not_unit
+from markdown_cmdsub import command_swap
 
 endglobal
 
@@ -11,7 +11,7 @@ endglobal
 #                                                              #
 ################################################################
 
-context "math()"
+context "math() and not_unit()"
 snippet // "分数 Fraction" wA
 \dfrac{${1:${VISUAL}}}{$2}$0
 endsnippet
@@ -20,7 +20,7 @@ endsnippet
 # Support number, (number or letter add) letter or string command (add superscript or subscript) and factorial
 # 字符命令指的是 '\alpha' 等
 # String command refers to as '\alpha' and so on
-context "math()"
+context "math() and not_unit()"
 snippet "(\d+|[\da-zA-Z]*\\?[A-Za-z]+([_^](\{\S+\s?\}|[\da-zA-Z]))*|[\da-zA-Z]+!)/" "简单分数 Simple Fraction" rA
 \dfrac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
@@ -41,10 +41,10 @@ snip.rv = string[:i] + "\\dfrac{" + string[i + 1:-1] + "}"
 endsnippet
 
 # frac <-> dfrac
+priority -1
 context "math()"
 snippet "(\\(frac|dfrac)\{.*\}\{.*\})" "分式变形 Fraction Transformation" r
 `!p
-array = ['\\frac', '\\dfrac']
-snip.rv = command_cycle(match.group(1), array, 2)
+snip.rv = command_swap(match.group(1), '\\frac', '\\dfrac', 2)
 `
 endsnippet

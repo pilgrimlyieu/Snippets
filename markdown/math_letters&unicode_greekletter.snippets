@@ -16,34 +16,34 @@ endglobal
 
 context "math()"
 snippet "(?<!\\)\b(alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|omicron|pi|rho|sigma|tau|upsilon|phi|chi|omega|varepsilon|varkappa|vartheta|varpi|varrho|varsigma|varphi)" "希腊字母 Greek Letter" Ar
-\\`!p snip.rv = ("var" if match.group(1) in special_letters else "") + match.group(1)` 
+\\`!p snip.rv = ("var" if match.group(1) in special_letters else "") + match.group(1)`
 endsnippet
 
 context "math()"
 snippet "(?<!\\)\b(Alpha|Beta|Gamma|Delta|Epsilon|Zeta|Eta|Theta|Iota|Kappa|Lambda|Mu|Nu|Xi|Omicron|Pi|Rho|Sigma|Tau|Upsilon|Phi|Chi|Psi|Omega)" "大写希腊字母 Uppercase Greek Letter" Ar
-\\`!p snip.rv = match.group(1)` 
+\\`!p snip.rv = match.group(1)`
 endsnippet
 
 priority 2
 context "math()"
-snippet "(\\(?:var)?)([pP]hi)(\s?)\\" "phi & Phi" r
+snippet "(\\(?:var)?)([pP]hi)\\" "phi & Phi" r
 `!p
-snip.rv = match.group(1) + match.group(2)[0].swapcase() + match.group(2)[1:] + match.group(3)
+snip.rv = match.group(1) + match.group(2)[0].swapcase() + match.group(2)[1:]
 `
 endsnippet
 
 priority 1
 context "math()"
-snippet "(\\var|\\)(epsilon|[tT]heta|[pP]hi|[sS]igma|[kK]appa|[Rr]ho)(\s?)" "希腊字母斜体 Greek Italic" r
+snippet "(\\var|\\)(epsilon|[tT]heta|[pP]hi|[sS]igma|[kK]appa|[Rr]ho)" "希腊字母斜体 Greek Italic" r
 `!p
-snip.rv = choose_next(match.group(1), letter_prefix, 2) + match.group(2) + (match.group(3))
+snip.rv = choose_next(match.group(1), letter_prefix, 2) + match.group(2)
 `
 endsnippet
 
 context "math()"
-snippet "\\([gG]amma|[dD]elta|[lL]ambda|[Xx]i|[uU]psilon|[pP]si|[oO]mega)(\s?)" "大写希腊字母" r
+snippet "\\([gG]amma|[dD]elta|[lL]ambda|[Xx]i|[uU]psilon|[pP]si|[oO]mega)" "大写希腊字母" r
 \\`!p
-snip.rv = match.group(1)[0].swapcase() + match.group(1)[1:] + (match.group(2) or '')
+snip.rv = match.group(1)[0].swapcase() + match.group(1)[1:]
 `
 endsnippet
 
@@ -96,5 +96,5 @@ match match.group(1):
         snip.rv = "varepsilon"
     case "vp":
         snip.rv = "varphi"
-` 
+`
 endsnippet
