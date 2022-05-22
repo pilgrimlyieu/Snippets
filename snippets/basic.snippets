@@ -9,6 +9,15 @@ snip.rv = ' ' * front_num`$1`!p snip.rv = ' ' * (62 - front_num - string_length)
 $0
 endsnippet
 
+snippet gl "全局 Global" b
+global ${1:!p}
+
+${2:${VISUAL}}
+
+endglobal
+$0
+endsnippet
+
 snippet txt "创建上下文 Create Contest" b
 context "${1|math,text,chem,inline_math,display_math,comment|}()"
 $0
@@ -31,7 +40,7 @@ endsnippet
 
 snippet snip "创建片段 Create Snippet" b
 snippet ${1:Trigger} "${2:Description}" ${3:w}`!p snip.rv = "r" if (t[1][:1] == "\"" and "r" not in t[3]) else ""`
-$5
+$4
 `echo endsnippet`
 $0
 endsnippet
@@ -66,3 +75,21 @@ snippet scr "脚本 Script" b
 $2
 \`$0
 endsnippet
+
+snippet from "导入 Import" b
+from ${1:markdown_scopes} import ${2:math}
+endsnippet
+
+snippet def "定义 Define" b
+def $1($2):
+    $0
+endsnippet
+
+snippet math "数学片段 Math Snippet" b
+context "${1|math,chem,inline_math,display_math|}()"
+snippet ${2:Trigger} "${3:Description}" ${4:w}`!p snip.rv = "r" if (t[1][:1] == "\"" and "r" not in t[3]) else ""`
+$5
+`echo endsnippet`
+$0
+endsnippet
+
