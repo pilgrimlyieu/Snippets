@@ -23,14 +23,6 @@ context "${1|math,text,chem,inline_math,display_math,comment|}()"
 $0
 endsnippet
 
-snippet psj "post_jump" b
-post_jump "$1"$0
-endsnippet
-
-snippet pex "expand" b
-${1|pre_expand,post_expand|} "$2"$0
-endsnippet
-
 snippet pp "Pre" b
 ${1|post_jump,pre_expand,post_expand|} "$2"$0
 endsnippet
