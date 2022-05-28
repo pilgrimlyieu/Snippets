@@ -38,6 +38,11 @@ snippet ooo "无穷大 Infinity" Aw
 endsnippet
 
 context "math()"
+snippet nabla "算子 Nabla" Aw
+\nabla 
+endsnippet
+
+context "math()"
 snippet "((?:\+|-)?)\\infty(\s?)" "无穷大转换 Infinity Transformation" r
 `!p
 snip.rv = choose_next(match.group(1), infties, 3) + '\\infty' + match.group(2)

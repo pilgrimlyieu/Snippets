@@ -3,20 +3,19 @@ global !p
 from builtin import choose_next
 from markdown_scopes import math
 
-logical_terms = {'yw': '\\because', 'sy': '\\therefore', 'and': '\\land', 'or': '\\lor', 'neg': '\\neg'}
-logical_terms_cycle = ['\\because', '\\therefore', '\\land', '\\lor', '\\neg']
+logical_terms = {'yw': 'because', 'sy': 'therefore', 'and': 'land', 'or': 'lor', 'neg': 'neg'}
+logical_terms_cycle = ['because', 'therefore', 'land', 'lor', 'neg']
 
 exists = ['exist', 'nexists']
 exist_forall = ['exist', 'forall']
 
-set_relations_reverse = ['sub', 'sup']
-set_relations_sub = ["subset", "subseteq", "subsetneqq"]
-set_relations_sup = ["supset", "supseteq", "supsetneqq"]
+set_relations_reverse = ['b', 'p']
+set_relations_sub = ['', 'eq', 'neqq']
+set_relations_sup = ['', 'eq', 'neqq']
 
 not_reverse = ['', 'not']
 big_reverse = ['', 'big']
 
-in_ni = ['in', 'ni']
 a_u = ['a', 'u']
 ands = ['land', 'bigwedge']
 ors = ['lor', 'bigvee']
@@ -31,27 +30,27 @@ endglobal
 
 context "math()"
 snippet "(?<!\\)\b(yw|sy|and|or|neg)" "逻辑用语 Logical Terms" Ar
-`!p
+\\`!p
 snip.rv = logical_terms[match.group(1)]
+` 
+endsnippet
+
+context "math()"
+snippet "\\(because|therefore|land|lor|neg)(\s?)" "逻辑用语转换 Logical Terms Transformation" r
+\\`!p
+snip.rv = choose_next(match.group(1), logical_terms_cycle, 5) + match.group(2)
 `
 endsnippet
 
 context "math()"
-snippet "(\\(because|therefore|land|lor|neg))" "逻辑用语转换 Logical Terms Transformation" r
-`!p
-snip.rv = choose_next(match.group(1), logical_terms_cycle, 5)
-`
-endsnippet
-
-context "math()"
-snippet "\\(land|bigwedge)(\s)" "与 And" r
+snippet "\\(land|bigwedge)(\s?)/" "与 And" r
 \\`!p
 snip.rv = choose_next(match.group(1), ands, 2) + match.group(2)
 `
 endsnippet
 
 context "math()"
-snippet "\\(lor|bigvee)(\s)" "或 Or" r
+snippet "\\(lor|bigvee)(\s?)/" "或 Or" r
 \\`!p
 snip.rv = choose_next(match.group(1), ors, 2) + match.group(2)
 `
@@ -78,16 +77,16 @@ snippet "(?<!\\)\b(forall|AA)" "任意 Forall" Ar
 endsnippet
 
 context "math()"
-snippet "\\(exist|nexists)(_([a-zA-Z]|\{[^}]+\}),?\s)" "存在 & 不存在 Exist & Non-Exist" r
+snippet "\\(exist|nexists)(_(?:[a-zA-Z]|\{[^}]+\}),?)(\s?)/" "存在 & 不存在 Exist & Non-Exist" r
 \\`!p
-snip.rv = choose_next(match.group(1), exists, 2) + match.group(2)
+snip.rv = choose_next(match.group(1), exists, 2) + match.group(2) + match.group(3)
 `
 endsnippet
 
 context "math()"
-snippet "\\(exist|forall)(_([a-zA-Z]|\{[^}]+\}),?)" "存在 & 任意 Exist & Forall" r
+snippet "\\(exist|forall)(_(?:[a-zA-Z]|\{[^}]+\}),?)(\s?)" "存在 & 任意 Exist & Forall" r
 \\`!p
-snip.rv = choose_next(match.group(1), exist_forall, 2) + match.group(2)
+snip.rv = choose_next(match.group(1), exist_forall, 2) + match.group(2) + match.group(3)
 `
 endsnippet
 
@@ -112,23 +111,23 @@ snippet bhp "⊃ 包含 Supset" Aw
 endsnippet
 
 context "math()"
-snippet "\\(subseteq|subsetneqq|subset)" "包含于 Subset" r
-\\`!p
-snip.rv = choose_next(match.group(1), set_relations_sub, 3)
+snippet "\\subset((?:eq|neqq)?)(\s?)" "包含于 Subset" r
+\subset`!p
+snip.rv = choose_next(match.group(1), set_relations_sub, 3) + match.group(2)
 `
 endsnippet
 
 context "math()"
-snippet "\\(supseteq|supsetneqq|supset)" "包含 Supset" r
-\\`!p
-snip.rv = choose_next(match.group(1), set_relations_sup, 3)
+snippet "\\supset((?:eq|neqq)?)(\s?)" "包含 Supset" r
+\supset`!p
+snip.rv = choose_next(match.group(1), set_relations_sup, 3) + match.group(2)
 `
 endsnippet
 
 context "math()"
-snippet "\\(sub|sup)(set|seteq|setneqq)" "包含 & 包含于 Subset & Supset" r
-\\`!p
-snip.rv = choose_next(match.group(1), set_relations_reverse, 2) + match.group(2)
+snippet "\\su(b|p)(set(?:eq|neqq)?)(\s?)/" "包含 & 包含于 Subset & Supset" Ar
+\su`!p
+snip.rv = choose_next(match.group(1), set_relations_reverse, 2) + match.group(2) + match.group(3)
 `
 endsnippet
 
@@ -143,36 +142,35 @@ snippet "(?<!\\)\b(cup|bing)" "并集 Union" Ar
 endsnippet
 
 context "math()"
-snippet "\\((?:big)?)(cap|cup\s?)" "交集 & 并集 Intersection & Union" r
+snippet "\\((?:big)?)(cap|cup)(\s?)" "交集 & 并集 Intersection & Union" r
 \\`!p
-snip.rv = choose_next(match.group(1), big_reverse, 2) + match.group(2)
+snip.rv = choose_next(match.group(1), big_reverse, 2) + match.group(2) + match.group(3)
 `
+endsnippet
+
+context "math()"
+snippet in "属于 In" w
+\in
 endsnippet
 
 priority 1
 context "math()"
-snippet "(\\(?:big)?c)(a|u)p/" "交集 & 并集 Intersection & Union" Ar
+snippet "(\\(?:big)?c)(a|u)p(\s?)/" "交集 & 并集 Intersection & Union" Ar
 `!p
-snip.rv = match.group(1) + choose_next(match.group(2), a_u, 2)
+snip.rv = match.group(1) + choose_next(match.group(2), a_u, 2) + match.group(3)
 `p
 endsnippet
 
 context "math()"
-snippet "\\((?:not)?)(in|ni\s?)" "属于转换 In Transforamtion" r
+snippet "\\((?:not)?)(in|ni)(\s?)" "属于转换 In Transforamtion" r
 \\`!p
-snip.rv = choose_next(match.group(1), not_reverse, 2) + match.group(2)
+snip.rv = choose_next(match.group(1), not_reverse, 2) + match.group(2) + match.group(3)
 `
 endsnippet
 
 context "math()"
-snippet "\\(in|ni)/" "属于转换 In Transforamtion" Ar
+snippet "\\(in|ni)(\s?)/" "属于转换 In Transforamtion" Ar
 \\`!p
-snip.rv = choose_next(match.group(1), in_ni, 2)
+snip.rv = match.group(1)[::-1] + match.group(2)
 `
-endsnippet
-
-priority 0
-context "math()"
-snippet in "属于 In" w
-\in
 endsnippet

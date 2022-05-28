@@ -6,21 +6,16 @@ endglobal
 
 ################################################################
 #                                                              #
-#               Letters & Unicode - Other Letter               #
+#                          Functions                           #
 #                                                              #
 ################################################################
 
 context "math()"
-snippet "aleph|alef" "阿列夫 Aleph" Awr
-\aleph 
+snippet flr "向下取整 Floor" Aw
+\left\lfloor $1\right\rfloor$0
 endsnippet
 
 context "math()"
-snippet re "实部 Real" w
-\Re 
-endsnippet
-
-context "math()"
-snippet im "虚部 Image" w
-\Im 
+snippet cil "向上取整 Ceil" Aw
+\left\lceil $1\right\rceil$0
 endsnippet

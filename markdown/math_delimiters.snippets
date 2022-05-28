@@ -6,21 +6,22 @@ endglobal
 
 ################################################################
 #                                                              #
-#               Letters & Unicode - Other Letter               #
+#                          Delimiters                          #
 #                                                              #
 ################################################################
 
 context "math()"
-snippet "aleph|alef" "阿列夫 Aleph" Awr
-\aleph 
+snippet \} "大括号 Curly Braces" Ai
+\lbrace $1\rbrace$0
 endsnippet
 
 context "math()"
-snippet re "实部 Real" w
-\Re 
+snippet \| "竖括号 Verticals" Ai
+\lVert $1\rVert$0
 endsnippet
 
 context "math()"
-snippet im "虚部 Image" w
-\Im 
+snippet "<([^>])+>" "Description" r
+\lang `!p snip.rv = match.group(1)`\rang
 endsnippet
+

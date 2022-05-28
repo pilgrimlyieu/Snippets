@@ -4,9 +4,6 @@ from builtin import choose_next
 from markdown_scopes import math, chem
 
 colons = [':', '\\colon']
-largers = ['>', '\\ge']
-lesses = ['<', '\\le']
-
 nornot = ['', 'n']
 
 endglobal
@@ -19,9 +16,7 @@ endglobal
 
 context "math()"
 snippet "(:|\\colon)" "冒号 Colon" r
-`!p
-snip.rv = choose_next(match.group(1), colons, 2)
-`
+`!p snip.rv = choose_next(match.group(1), colons, 2)`
 endsnippet
 
 context "math()"
@@ -76,20 +71,6 @@ endsnippet
 context "chem()"
 snippet = "化学等号 Chemical Equal" i
  \xlongequal[$1]{\enspace $2\enspace} $0
-endsnippet
-
-context "math()"
-snippet "(>|\\ge)(\s?)" "大于转换 Larger Transformation" r
-`!p
-snip.rv = choose_next(match.group(1), largers, 2) + match.group(2)
-`
-endsnippet
-
-context "math()"
-snippet "(<|\\le)(\s?)" "小于转换 Smaller Transformation" r
-`!p
-snip.rv = choose_next(match.group(1), lesses, 2) + match.group(2)
-`
 endsnippet
 
 context "math()"
