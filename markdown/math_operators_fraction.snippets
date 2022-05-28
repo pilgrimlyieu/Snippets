@@ -7,22 +7,13 @@ endglobal
 
 ################################################################
 #                                                              #
-#                     Operators - Fraction                     #
+#               Operators - Fraction & Binomial                #
 #                                                              #
 ################################################################
 
 context "math() and not_unit()"
 snippet // "分数 Fraction" wA
 \dfrac{${1:${VISUAL}}}{$2}$0
-endsnippet
-
-# 支持数字、（数字或字母加）字母或字符命令（加上下标）与阶乘等
-# Support number, (number or letter add) letter or string command (add superscript or subscript) and factorial
-# 字符命令指的是 '\alpha' 等
-# String command refers to as '\alpha' and so on
-context "math() and not_unit()"
-snippet "(\d+|[\da-zA-Z]*\\?[A-Za-z]+([_^](\{\S+\s?\}|[\da-zA-Z]))*|[\da-zA-Z]+!)/" "简单分数 Simple Fraction" rA
-\dfrac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
 
 # 已知问题：#1
@@ -40,11 +31,33 @@ snip.rv = string[:i] + "\\dfrac{" + string[i + 1:-1] + "}"
 `{$1}$0
 endsnippet
 
-# frac <-> dfrac
+context "math()"
+snippet bin "二项式 Binomial" w
+\binom{${1:${VISUAL}}}{$2}$0
+endsnippet
+
 priority -1
+
+# 支持数字、（数字或字母加）字母或字符命令（加上下标）与阶乘等
+# Support number, (number or letter add) letter or string command (add superscript or subscript) and factorial
+# 字符命令指的是 '\alpha' 等
+# String command refers to as '\alpha' and so on
+context "math() and not_unit()"
+snippet "(\d+|[\da-zA-Z]*\\?[A-Za-z]+([_^](\{\S+\s?\}|[\da-zA-Z]))*|[\da-zA-Z]+!)/" "简单分数 Simple Fraction" rA
+\dfrac{`!p snip.rv = match.group(1)`}{${1:${VISUAL}}}$0
+endsnippet
+
+# frac <-> dfrac
 context "math()"
 snippet "(\\(frac|dfrac)\{.*\}\{.*\})" "分式变形 Fraction Transformation" r
 `!p
 snip.rv = command_swap(match.group(1), '\\frac', '\\dfrac', 2)
+`
+endsnippet
+
+context "math()"
+snippet "(\\(binom|dbinom)\{.*\}\{.*\})" "二项式变形 Binomial Transformation" r
+`!p
+snip.rv = command_swap(match.group(1), '\\binom', '\\dbinom', 2)
 `
 endsnippet

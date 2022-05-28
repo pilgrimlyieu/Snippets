@@ -24,18 +24,15 @@ $0
 endsnippet
 
 snippet psj "post_jump" b
-post_jump "$1"
-$0
+post_jump "$1"$0
 endsnippet
 
 snippet pex "expand" b
-${1|pre_expand,post_expand|} "$2"
-$0
+${1|pre_expand,post_expand|} "$2"$0
 endsnippet
 
 snippet pp "Pre" b
-${1|post_jump,pre_expand,post_expand|} "$2"
-$0
+${1|post_jump,pre_expand,post_expand|} "$2"$0
 endsnippet
 
 snippet snip "创建片段 Create Snippet" b
@@ -53,14 +50,20 @@ snippet m "匹配值 Match" w
 match.group(${1:1})$0
 endsnippet
 
-snippet t "TabStop" w
+snippet tab "TabStop" w
 t[${1:1}]$0
 endsnippet
 
-snippet tab "TabStop" w
-\${${1:1}${2::${3:}}}$0
+snippet t "TabStop" w
+\${${1:1}:${2:${VISUAL}}}$0
 endsnippet
 
+priority 1
+snippet tt "TabStop" w
+\$${0:1}
+endsnippet
+
+priority 0
 snippet vis "Visual" w
 \${VISUAL}
 endsnippet
@@ -76,6 +79,7 @@ $2
 \`$0
 endsnippet
 
+priority 0
 snippet from "导入 Import" b
 from ${1:markdown_scopes} import ${2:math}
 endsnippet
@@ -87,9 +91,8 @@ endsnippet
 
 snippet math "数学片段 Math Snippet" b
 context "${1|math,chem,inline_math,display_math|}()"
-snippet ${2:Trigger} "${3:Description}" ${4:w}`!p snip.rv = "r" if (t[1][:1] == "\"" and "r" not in t[3]) else ""`
+snippet ${2:Trigger} "${3:Description}" ${4:w}`!p snip.rv = "r" if (t[2][:1] == "\"" and "r" not in t[4]) else ""`
 $5
 `echo endsnippet`
 $0
 endsnippet
-
