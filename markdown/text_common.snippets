@@ -14,12 +14,12 @@ endglobal
 # 支持自动添加空格（意外删除时可能出现 BUG）
 # Support automatically add space (may have BUG if you delete it accidenly)
 context "text()"
-snippet '\b(\W?)lm' "行内公式 Inline Formula" rA
+snippet '\b(\W?)lm' "行内公式 Inline Formula" Ar
 `!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ')`$$1$`!p snip.rv = '' if t[2][:1] in after_puncs else ' '`$2
 endsnippet
 
 context "text()"
-snippet dm "行间公式 Display Formula" bA
+snippet dm "行间公式 Display Formula" Ab
 $$
 $1
 $$

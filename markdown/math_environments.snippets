@@ -24,43 +24,43 @@ endglobal
 #                                                              #
 ################################################################
 
+context "inline_math()"
 post_jump "inline_environment(snip)"
-context "inline_math()"
 snippet env "环境 Environment" w
 endsnippet
 
+context "display_math()"
 post_jump "display_environment(snip)"
-context "display_math()"
 snippet env "环境 Environment" w
 endsnippet
 
+context "inline_math()"
 post_jump "inline_environment(snip, option = 'option')"
-context "inline_math()"
 snippet envo "环境（选项） Environment(option)" w
 endsnippet
 
+context "display_math()"
 post_jump "display_environment(snip, option = 'option')"
-context "display_math()"
 snippet envo "环境（选项） Environment(option)" w
 endsnippet
 
+context "inline_math()"
 post_jump "inline_environment(snip, 'cases')"
-context "inline_math()"
 snippet case "Cases 环境 Cases Environment" w
 endsnippet
 
-post_jump "display_environment(snip, 'cases')"
 context "display_math()"
+post_jump "display_environment(snip, 'cases')"
 snippet case "Cases 环境 Cases Environment" w
 endsnippet
 
-post_jump "inline_environment(snip, 'aligned')"
 context "inline_math()"
+post_jump "inline_environment(snip, 'aligned')"
 snippet align "Aligned 环境 Aligned Environment" w
 endsnippet
 
-post_jump "display_environment(snip, 'aligned')"
 context "display_math()"
+post_jump "display_environment(snip, 'aligned')"
 snippet align "Aligned 环境 Aligned Environment" w
 endsnippet
 
@@ -82,9 +82,4 @@ endsnippet
 context "math()"
 snippet "\\?\btag" "标记 Tag" r
 \tag{$1}$0
-endsnippet
-
-context "display_math()"
-snippet cbox "定理盒子 Rule Box" w
-\fcolorbox{#ff69b4}{trasparent}{$$1$}$0
 endsnippet
