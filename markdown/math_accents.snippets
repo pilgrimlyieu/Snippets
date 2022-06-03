@@ -31,7 +31,6 @@ snip.rv = choose_next(match.group(1), special_hbar, 2)
 `
 endsnippet
 
-
 context "math()"
 snippet "(\b[a-zA-Z0]|\\[a-zA-Z]+)([_^](?:\{\S+\s?\}|[\da-zA-Z]))?(bar|hat|vec)" "拔/帽/向量 Bar/Hat/Vector" Ar
 `!p snip.rv = bar_hat_vec(match.group(3) or match.group(2), match.group(1), match.group(2) if match.group(3) else '')`
