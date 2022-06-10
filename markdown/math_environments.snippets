@@ -1,6 +1,6 @@
 global !p
 
-from markdown_scopes import math, display_math, inline_math, chem, not_chem, unit, not_unit
+from mdtex.scopes import math, display_math, inline_math, chem, not_chem, unit, not_unit
 
 def inline_environment(snip, env = '', option = ''):
 	before_text = snip.buffer[snip.line][:snip.snippet_start[1]]
