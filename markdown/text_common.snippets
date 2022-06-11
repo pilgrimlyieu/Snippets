@@ -91,12 +91,17 @@ snippet * "斜体 Italics" i
 endsnippet
 
 context "text()"
-snippet ** "粗体 Bold" i
+snippet ii "斜体 Italics" i
+*${1:${VISUAL}}*$0
+endsnippet
+
+context "text()"
+snippet bb "粗体 Bold" i
 **${1:${VISUAL}}**$0
 endsnippet
 
 context "text()"
-snippet *** "粗斜体 Bold Italics" i
+snippet bii "粗斜体 Bold Italics" i
 ***${1:${VISUAL}}***$0
 endsnippet
 
@@ -119,3 +124,14 @@ snippet hr "分节行 Section Line" w
 
 endsnippet
 
+priority 1
+context "text()"
+snippet ** "粗体 Bold" i
+**${1:${VISUAL}}**$0
+endsnippet
+
+priority 2
+context "text()"
+snippet *** "粗斜体 Bold Italics" i
+***${1:${VISUAL}}***$0
+endsnippet

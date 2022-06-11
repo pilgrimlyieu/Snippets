@@ -53,15 +53,9 @@ t[${1:1}]$0
 endsnippet
 
 snippet t "TabStop" w
-\${${1:1}:${2:${VISUAL}}}$0
+\${${1:1}:${2:\${VISUAL}}}$0
 endsnippet
 
-priority 1
-snippet tt "TabStop" w
-\$${1:1}$0
-endsnippet
-
-priority 0
 snippet vis "Visual" w
 \${VISUAL}
 endsnippet
@@ -71,6 +65,10 @@ snippet scr "脚本 Script" w
 endsnippet
 
 priority 1
+snippet tt "TabStop" w
+\$${1:1}$0
+endsnippet
+
 snippet scr "脚本 Script" b
 \`${1:!p}
 $2
