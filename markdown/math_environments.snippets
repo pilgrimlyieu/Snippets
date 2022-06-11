@@ -83,3 +83,14 @@ context "math()"
 snippet "\\?\btag" "标记 Tag" r
 \tag{$1}$0
 endsnippet
+
+context "math() and not_chem()"
+snippet = "环境等号 Environment Equal" i
+&=
+endsnippet
+
+priority 1
+context "math()"
+snippet &= "环境等号 Environment Equal" i
+=
+endsnippet
