@@ -15,7 +15,7 @@ endglobal
 # Support automatically add space (may have BUG if you delete it accidenly)
 context "text()"
 snippet '\b(\W?)lm' "行内公式 Inline Formula" Ar
-`!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ')`$$1$`!p snip.rv = '' if t[2][:1] in after_puncs else ' '`$2
+`!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ')`$$1$$2
 endsnippet
 
 context "text()"
@@ -101,8 +101,13 @@ snippet bb "粗体 Bold" i
 endsnippet
 
 context "text()"
-snippet bii "粗斜体 Bold Italics" i
+snippet bi "粗斜体 Bold Italics" i
 ***${1:${VISUAL}}***$0
+endsnippet
+
+context "text()"
+snippet uu "下划线 Underline" i
+<u>${1:${VISUAL}}</u>$0
 endsnippet
 
 context "text()"
