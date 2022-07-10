@@ -46,7 +46,7 @@ priority -1
 # 字符命令指的是 '\alpha' 等
 # String command refers to as '\alpha' and so on
 context "math() and not_unit()"
-snippet "(\w*(\\[A-Za-z]+)?([_^]([\da-zA-Z]|\{[^}]+\}))?!?)/" "简单分数 Simple Fraction" Ar
+snippet "([a-zA-Z\d]+!?|[a-zA-Z\d]*\\?[A-Za-z]+([_^](\{[^}]+\}|[\da-zA-Z])){,2})/" "简单分数 Simple Fraction" Ar
 \dfrac{`!p snip.rv = match.group(1)`}{${1:${VISUAL}}}$0
 endsnippet
 
