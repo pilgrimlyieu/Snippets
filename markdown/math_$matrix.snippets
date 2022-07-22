@@ -1,6 +1,12 @@
+global !p
+
+from mdtex.scopes import math, inline_math, display_math
+
+endglobal
+
 # 矩阵片段
 ## 格式（?xxx? 代表 xxx 可省略）
-### `option` + mm + ?`size`? + ?\`content`\? + ?%`command`?
+### `option` + mm + ?`size`? + ?\`content`\.? + ?%`command`?
 ## 参数
 ### `option` {{{1
 #### 'm': 无边框矩阵
@@ -17,7 +23,9 @@
 #### 'mn' m×n
 ## }}}1
 ### `content` {{{1
-#### 预填充内容（TODO 是否应考虑限制长度？大概限制长度为 50？）
+#### 预填充内容
+#### 内容包含空格时需增加 '.' 明确内容结束
+#### 包含空格的内容限制长度为 50，不包含空格内容可无限长
 #### 保留关键词
 ##### '$': 或许可作为递推数字占位符
 ##### '@': TODO
@@ -29,3 +37,18 @@
 ##### 内置命令缩写以便快捷输入矩阵
 ##### 暂定以 '|' 为分界符
 ## }}}1
+
+context "math()"
+snippet mat "矩阵格式" w
+${1|b,v,p,V,B,m|}mm$2\\$3\\.%$0
+endsnippet
+
+priority 1
+context "math()"
+snippet "(?a)\b([mpbBvV]mm\d)" "优化矩阵 Matrix Tip" Ar
+`!p snip.rv = match.group(1)`
+endsnippet
+
+context "display_math()"
+snippet "(?a)\b([mpbBvV])mm(\d{,2})((?:\\\S*\\|\\.{,50}\\\.)?)((?:%[a-zA-Z\d|,]*)?)" "行间矩阵 Display Matrix" r
+endsnippet
