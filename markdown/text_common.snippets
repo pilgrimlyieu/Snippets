@@ -11,11 +11,11 @@ endglobal
 #                                                              #
 ################################################################
 
-# 支持自动添加空格（意外删除时可能出现 BUG）
-# Support automatically add space (may have BUG if you delete it accidenly)
+# 不再支持自动添加空格（由于 BUG 与不稳定性）
+# No longer Support automatically add space (in case of BUG and instability)
 context "text()"
 snippet '(?a)(\W?)\blm' "行内公式 Inline Formula" Ar
-`!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ')`$$1$$0
+`!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ')`$$1$ $0
 endsnippet
 
 context "text()"
@@ -67,6 +67,11 @@ snippet code "代码 Code Block" b
 ${2:${VISUAL}}
 \`\`\`
 $0
+endsnippet
+
+context "text()"
+snippet kbd "按键 Key" w
+<kbd>${1:${VISUAL}}</kbd>$0
 endsnippet
 
 context "text()"

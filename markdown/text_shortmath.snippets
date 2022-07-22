@@ -1,7 +1,7 @@
 global !p
 
 from mdtex.scopes import text
-from markdown.text import before_puncs, after_puncs
+from md.text import before_puncs, after_puncs
 
 special_letters = ['epsilon', 'phi']
 
@@ -77,4 +77,3 @@ context "text()"
 snippet "(?a)(\D?)\b(Alpha|Beta|Gamma|Delta|Epsilon|Zeta|Eta|Theta|Iota|Kappa|Lambda|Mu|Nu|Xi|Omicron|Pi|Rho|Sigma|Tau|Upsilon|Phi|Chi|Psi|Omega)" "行间大写希腊字母 Inline Uppercase Greek Letter" r
 `!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ')`$\\`!p snip.rv = match.group(2)`$ 
 endsnippet
-

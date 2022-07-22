@@ -3,6 +3,7 @@ global !p
 from mdtex.scopes import math
 
 roman_list = {1000: 'M', 900: 'CM', 500: 'D', 400: 'CD', 100: 'C', 90: 'XC', 50: 'L', 40: 'XL', 10: 'X', 9: 'IX', 5: 'V', 4: 'IV', 1: 'I'}
+interval   = '\\kern{-0.1em}'
 
 def int_to_roman(num):
     if num > 1666:
@@ -14,11 +15,15 @@ def int_to_roman(num):
             num -= r * x
             if num <= 0:
                 break
-    return '\\kern{-0.1em}'.join([b for a in roman_num(num) for b in a])
+    return interval.join([b for a in roman_num(num) for b in a])
 
 endglobal
 
 context "math()"
 snippet "\b(\d+)rmn" "罗马数字 Roman Number" r
-\mathrm{`!p snip.rv = int_to_roman(int(match.group(1))) or ''`}
+`!p
+result = int_to_roman(int(match.group(1)))
+if result:
+	snip.rv = '\\mathrm{' + int_to_roman(int(match.group(1))) + '}'
+`
 endsnippet

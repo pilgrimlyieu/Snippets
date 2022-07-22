@@ -52,7 +52,12 @@ snippet ' "上标 Superscript" i
 endsnippet
 
 context "math()"
-snippet "([a-zA-Z\d])'([a-zA-Z\d-])" "数字上标 Number Superscript" Ar
+snippet "([a-zA-Z\d])'([\d-])" "数字上标 Number Superscript" Ar
+`!p snip.rv = match.group(1)`^`!p snip.rv = match.group(2)`
+endsnippet
+
+context "math()"
+snippet "([a-zA-Z\d])'([a-zA-Z])" "字母上标 Letter Superscript" ir
 `!p snip.rv = match.group(1)`^`!p snip.rv = match.group(2)`
 endsnippet
 

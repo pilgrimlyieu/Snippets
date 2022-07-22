@@ -3,8 +3,10 @@ global !p
 from builtin import choose_next
 from mdtex.scopes import math, chem
 
-colons = [':', '\\colon']
-nornot = ['', 'n']
+colons     = [':', '\\colon', ':\\:']
+commas     = [',', ',\\,']
+semicolons = [';', ';\\;']
+nornot     = ['', 'n']
 
 endglobal
 
@@ -15,8 +17,23 @@ endglobal
 ################################################################
 
 context "math()"
-snippet "(:|\\colon)" "冒号 Colon" r
-`!p snip.rv = choose_next(match.group(1), colons, 2)`
+snippet "(:\\:|(?<!\\):|\\colon)" "冒号 Colon" r
+`!p snip.rv = choose_next(match.group(1), colons, 3)`
+endsnippet
+
+context "math()"
+snippet ,\, "逗号 Comma" i
+,
+endsnippet
+
+context "math()"
+snippet ,. "逗号 Comma" Ai
+,\,
+endsnippet
+
+context "math()"
+snippet "(;\\;|(?<!\\);)" "分号 Semicolon" r
+`!p snip.rv = choose_next(match.group(1), semicolons, 2)`
 endsnippet
 
 context "math()"

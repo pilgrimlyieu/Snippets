@@ -3,19 +3,19 @@ global !p
 from builtin import choose_next
 from mdtex.scopes import math, text, chem
 
-obitals = {"s": 1, "p": 3, "d": 5, "f": 7, "g": 9}
-eletrons = ['o', 'p', 's']
-nornots = ['', 'n']
+obitals     = {"s": 1, "p": 3, "d": 5, "f": 7, "g": 9}
+eletrons    = ['o', 'p', 's']
+nornots     = ['', 'n']
 nornnornots = ['', 'n', 'nn']
 
 def orbital(snip, elecs = ['\\oe', True]):
-	result = ''
-	level = int(snip.buffer[snip.line][snip.snippet_start[1] - 2])
-	shell = snip.buffer[snip.line][snip.snippet_start[1] - 1]
+	result      = ''
+	level       = int(snip.buffer[snip.line][snip.snippet_start[1] - 2])
+	shell       = snip.buffer[snip.line][snip.snippet_start[1] - 1]
 	before_text = snip.buffer[snip.line][:snip.snippet_start[1] - 2]
-	after_text = snip.buffer[snip.line][snip.snippet_end[1]:]
+	after_text  = snip.buffer[snip.line][snip.snippet_end[1]:]
+	overinfo    = '\\normalsize ' + str(level) + '\\ce{' + shell + '}'
 	snip.buffer[snip.line] = ''
-	overinfo = '\\normalsize ' + str(level) + '\\ce{' + shell + '}'
 
 	for elec_num in range(obitals[shell]):
 		result += elecs[0] + ('$' + str(elec_num + 1) if elecs[1] else '')

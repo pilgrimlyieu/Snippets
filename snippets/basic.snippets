@@ -64,18 +64,6 @@ snippet scr "脚本 Script" w
 \`${1:!p} $2\`$0
 endsnippet
 
-priority 1
-snippet tt "TabStop" w
-\$${1:1}$0
-endsnippet
-
-snippet scr "脚本 Script" b
-\`${1:!p}
-$2
-\`$0
-endsnippet
-
-priority 0
 snippet from "导入 Import" b
 from ${1:mdtex.scopes} import ${2:math}
 endsnippet
@@ -91,4 +79,15 @@ snippet ${2:Trigger} "${3:Description}" ${4:w}`!p snip.rv = "r" if (t[2][:1] == 
 $5
 `echo endsnippet`
 $0
+endsnippet
+
+priority 1
+snippet tt "TabStop" w
+$${1:1}$0
+endsnippet
+
+snippet scr "脚本 Script" b
+\`${1:!p}
+$2
+\`$0
 endsnippet
