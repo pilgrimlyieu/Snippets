@@ -1,0 +1,17 @@
+global !p
+
+from mdtex.scopes import math
+
+delimiters = {
+	'' : ['(', ')'],
+	'p': ['[', ']'],
+	'b': ['{', '}'],
+	'v': ['|', '|'],
+}
+
+endglobal
+
+context "math()"
+snippet zb "平面直角坐标系坐标 Plane Cartesian Coordinate" i
+\left($1 ,\, $2\right)$0
+endsnippet

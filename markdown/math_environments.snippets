@@ -2,20 +2,6 @@ global !p
 
 from mdtex.scopes import math, display_math, inline_math, chem, not_chem, unit, not_unit
 
-def inline_environment(snip, env = '', option = ''):
-	before_text = snip.buffer[snip.line][:snip.snippet_start[1]]
-	after_text = snip.buffer[snip.line][snip.snippet_end[1]:]
-	snip.buffer[snip.line] = ''
-	anon_snippet = before_text + '\\begin{' + (env or '${1:environment}') + '}' + ('{${2:' + option + '}}' if option else '') + ' ${3:${VISUAL}} \\end{' + (env or '$1') + '}$0' + after_text
-	snip.expand_anon(anon_snippet)
-
-def display_environment(snip, env = '', option = ''):
-	before_text = snip.buffer[snip.line][:snip.snippet_start[1]]
-	after_text = snip.buffer[snip.line][snip.snippet_end[1]:]
-	snip.buffer[snip.line] = ''
-	anon_snippet = before_text + '\\begin{' + (env or '${1:environment}') + '}' + ('{${2:' + option + '}}' if option else '') + '\n    ${3:${VISUAL}}\n\\end{' + (env or '$1') + '}\n$0' + after_text
-	snip.expand_anon(anon_snippet)
-
 endglobal
 
 ################################################################
@@ -25,43 +11,55 @@ endglobal
 ################################################################
 
 context "inline_math()"
-post_jump "inline_environment(snip)"
 snippet env "环境 Environment" w
+\begin{${1:environment}} ${2:${VISUAL}} \end{$1} $0
 endsnippet
 
 context "display_math()"
-post_jump "display_environment(snip)"
 snippet env "环境 Environment" w
+\begin{${1:environment}}
+    ${2:${VISUAL}}
+\end{$1}
+$0
 endsnippet
 
 context "inline_math()"
-post_jump "inline_environment(snip, option = 'option')"
 snippet envo "环境（选项） Environment(option)" w
+\begin{${1:environment}}{${2:option}} ${3:${VISUAL}} \end{$1} $0
 endsnippet
 
 context "display_math()"
-post_jump "display_environment(snip, option = 'option')"
 snippet envo "环境（选项） Environment(option)" w
+\begin{${1:environment}}{${2:option}}
+    ${3:${VISUAL}}
+\end{$1}
+$0
 endsnippet
 
 context "inline_math()"
-post_jump "inline_environment(snip, 'cases')"
 snippet case "Cases 环境 Cases Environment" w
+\begin{cases} ${1:${VISUAL}} \end{cases} $0
 endsnippet
 
 context "display_math()"
-post_jump "display_environment(snip, 'cases')"
 snippet case "Cases 环境 Cases Environment" w
+\begin{cases}
+    ${1:${VISUAL}}
+\end{cases}
+$0
 endsnippet
 
 context "inline_math()"
-post_jump "inline_environment(snip, 'aligned')"
 snippet align "Aligned 环境 Aligned Environment" w
+\begin{aligned} ${1:${VISUAL}} \end{aligned} $0
 endsnippet
 
 context "display_math()"
-post_jump "display_environment(snip, 'aligned')"
 snippet align "Aligned 环境 Aligned Environment" w
+\begin{aligned}
+    ${1:${VISUAL}}
+\end{aligned}
+$0
 endsnippet
 
 context "math()"
