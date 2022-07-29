@@ -47,6 +47,17 @@ snippet "\btbm([1-9]{2})" "居中表格 Center Table" br
 endsnippet
 
 context "text()"
+snippet todo "待办 Todo" b
+- [${1|x, |}] $0
+endsnippet
+
+snippet "^- \[([ x])\] (.+)" "待办 Todo" r
+`!p
+snip.rv = '- [' + (' ' if match.group(1) == 'x' else 'x') + '] ' + match.group(2)
+`
+endsnippet
+
+context "text()"
 snippet link "链接 Link" w
 [${1:${VISUAL}}](${2:https://${3:}})$0
 endsnippet
