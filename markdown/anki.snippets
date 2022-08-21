@@ -1,0 +1,27 @@
+global !p
+
+from mdtex.scopes import text
+
+endglobal
+
+priority 10
+
+context "text()"
+snippet ii "斜体 Italics" i
+<i>${1:${VISUAL}}</i>$0
+endsnippet
+
+context "text()"
+snippet bb "粗体 Bold" i
+<b>${1:${VISUAL}}</b>$0
+endsnippet
+
+context "text()"
+snippet bi "粗斜体 Bold Italics" i
+<b><i>${1:${VISUAL}}</i></b>$0
+endsnippet
+
+context "text()"
+snippet mm "高亮 Mark" i
+<mark>${1:${VISUAL}}</mark>$0
+endsnippet

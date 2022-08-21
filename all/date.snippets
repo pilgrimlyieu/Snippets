@@ -1,0 +1,9 @@
+global !p
+
+from datetime import datetime
+
+endglobal
+
+snippet dt "日期 Date" w
+`!p snip.rv = datetime.now().strftime('%Y-%m-%d')`
+endsnippet
