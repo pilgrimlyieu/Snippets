@@ -26,10 +26,10 @@ snip.rv = "## " + (("第 " + str(int(snip.fn[5:7])) + " 周") if ifweek else sni
 
 - ${1:`!p
 if ifweek:
-	week    = get_week('20' + snip.fn[8:16])
-	snip.rv = str(week[0]) + " ~ " + str(week[1])
+    week    = get_week('20' + snip.fn[8:16])
+    snip.rv = str(week[0]) + " ~ " + str(week[1])
 else:
-	snip.rv = snip.fn[:-3]
+    snip.rv = snip.fn[:-3]
 `}
 - 编写时间：${2:`!p snip.rv = snip.fn[11:16] if ifweek else snip.fn[5:-3]`}
 

@@ -23,9 +23,7 @@ endsnippet
 
 context "math()"
 snippet "(\\!|\\,|\\:|\\;|\\quad|\\qquad)" "空格转换 Space Transformation" r
-`!p
-snip.rv = choose_next(match.group(1), spaces, 6)
-`
+`!p snip.rv = choose_next(match.group(1), spaces, 6)`
 endsnippet
 
 context "math()"
@@ -41,7 +39,5 @@ endsnippet
 priority -2
 context "math()"
 snippet "((\\phantom|\\hphantom)\{.*\})" "幻影转换 Phantom Transformation" r
-`!p
-snip.rv = command_swap(match.group(1), '\\phantom', '\\hphantom')
-`
+`!p snip.rv = command_swap(match.group(1), '\\phantom', '\\hphantom')`
 endsnippet

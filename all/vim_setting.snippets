@@ -11,7 +11,5 @@ snippet ôft "设置文件类型 Set File Type" Ai
 endsnippet
 
 snippet "ôft=(\w*)" "设置文件类型 Set File Type" ir
-`!p
-vim.command("set filetype=" + match.group(1))
-`
+`!p vim.command("set filetype=" + match.group(1))`
 endsnippet

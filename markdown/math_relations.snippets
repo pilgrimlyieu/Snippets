@@ -92,21 +92,15 @@ endsnippet
 
 context "math()"
 snippet "\\(n?)sim(\s?)" "相似转换 Similar Transformation" r
-\\`!p
-snip.rv = choose_next(match.group(1), nornot, 2) + 'sim' + match.group(2)
-`
+\\`!p snip.rv = choose_next(match.group(1), nornot, 2) + 'sim' + match.group(2)`
 endsnippet
 
 context "math()"
 snippet "\\(n?)cong(\s?)" "全等转换 Congruent Transformation" Ar
-\\`!p
-snip.rv = choose_next(match.group(1), nornot, 2) + 'cong' + match.group(2)
-`
+\\`!p snip.rv = choose_next(match.group(1), nornot, 2) + 'cong' + match.group(2)`
 endsnippet
 
 context "math()"
 snippet "\\(n?)(ge|le)(\s?)/" "不大于&小于 Not Larger & Smaller" Ar
-\\`!p
-snip.rv = choose_next(match.group(1), nornot, 2) + match.group(2) + match.group(3)
-`
+\\`!p snip.rv = choose_next(match.group(1), nornot, 2) + match.group(2) + match.group(3)`
 endsnippet

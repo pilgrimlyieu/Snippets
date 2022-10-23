@@ -36,7 +36,5 @@ endsnippet
 priority -1
 context "math()"
 snippet "((\\cancel|\\bcancel|\\xcancel|\\sout)\{.*\})" "删除 Cancel" r
-`!p
-snip.rv = command_cycle(match.group(1), cancels)
-`
+`!p snip.rv = command_cycle(match.group(1), cancels)`
 endsnippet

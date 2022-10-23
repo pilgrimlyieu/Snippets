@@ -9,17 +9,17 @@ nornots     = ['', 'n']
 nornnornots = ['', 'n', 'nn']
 
 def orbital(snip, elecs = ['\\oe', True]):
-	result      = ''
-	level       = int(snip.buffer[snip.line][snip.snippet_start[1] - 2])
-	shell       = snip.buffer[snip.line][snip.snippet_start[1] - 1]
-	before_text = snip.buffer[snip.line][:snip.snippet_start[1] - 2]
-	after_text  = snip.buffer[snip.line][snip.snippet_end[1]:]
-	overinfo    = '\\normalsize ' + str(level) + '\\ce{' + shell + '}'
-	snip.buffer[snip.line] = ''
+    result      = ''
+    level       = int(snip.buffer[snip.line][snip.snippet_start[1] - 2])
+    shell       = snip.buffer[snip.line][snip.snippet_start[1] - 1]
+    before_text = snip.buffer[snip.line][:snip.snippet_start[1] - 2]
+    after_text  = snip.buffer[snip.line][snip.snippet_end[1]:]
+    overinfo    = '\\normalsize ' + str(level) + '\\ce{' + shell + '}'
+    snip.buffer[snip.line] = ''
 
-	for elec_num in range(obitals[shell]):
-		result += elecs[0] + ('$' + str(elec_num + 1) if elecs[1] else '')
-	snip.expand_anon(before_text + '\\overset{' + overinfo + '}{' + result + '}$0' + after_text)
+    for elec_num in range(obitals[shell]):
+        result += elecs[0] + ('$' + str(elec_num + 1) if elecs[1] else '')
+    snip.expand_anon(before_text + '\\overset{' + overinfo + '}{' + result + '}$0' + after_text)
 
 endglobal
 

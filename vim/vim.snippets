@@ -1,9 +1,7 @@
 snippet type "创建类别 Create Type" b
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                                              "
-"`!p
-string_length = len(t[1].encode('gbk')); front_num = (94 - string_length) // 2
-snip.rv = ' ' * front_num`$1`!p snip.rv = ' ' * (94 - front_num - string_length)`"
+"`!p string_length = len(t[1].encode('gbk')); front_num = (94 - string_length) // 2; snip.rv = ' ' * front_num`$1`!p snip.rv = ' ' * (94 - front_num - string_length)`"
 "                                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 $0
@@ -17,9 +15,7 @@ endsnippet
 
 snippet zone "创建区域 Create Zone" b
 """"""""""""""""""""""""""""""""""""""""""""""""
-"`!p
-string_length =  len(t[1].encode('gbk')); front_num = (46 - string_length) // 2
-snip.rv = ' ' * front_num`$1`!p snip.rv = ' ' * (46 - front_num - string_length)`"
+"`!p string_length =  len(t[1].encode('gbk')); front_num = (46 - string_length) // 2; snip.rv = ' ' * front_num`$1`!p snip.rv = ' ' * (46 - front_num - string_length)`"
 """"""""""""""""""""""""""""""""""""""""""""""""
 $0
 endsnippet

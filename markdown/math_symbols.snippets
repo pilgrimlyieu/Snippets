@@ -27,9 +27,7 @@ endsnippet
 
 context "math()"
 snippet "\\((?:c|v|d)?)dots(\s?)" "省略号转换 Ellipsis Transformation" r
-\\`!p
-snip.rv = choose_next(match.group(1), dots, 4) + 'dots' + match.group(2)
-`
+\\`!p snip.rv = choose_next(match.group(1), dots, 4) + 'dots' + match.group(2)`
 endsnippet
 
 context "math()"
@@ -44,9 +42,7 @@ endsnippet
 
 context "math()"
 snippet "((?:\+|-)?)\\infty(\s?)" "无穷大转换 Infinity Transformation" r
-`!p
-snip.rv = choose_next(match.group(1), infties, 3) + '\\infty' + match.group(2)
-`
+`!p snip.rv = choose_next(match.group(1), infties, 3) + '\\infty' + match.group(2)`
 endsnippet
 
 context "math()"
@@ -82,7 +78,5 @@ endsnippet
 priority 1
 context "math()"
 snippet "\\(n?)(par\s?)" "平行转换 Parallel Transformation" r
-\\`!p
-snip.rv = choose_next(match.group(1), nornots, 2) + match.group(2)
-`
+\\`!p snip.rv = choose_next(match.group(1), nornots, 2) + match.group(2)`
 endsnippet

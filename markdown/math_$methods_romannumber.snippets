@@ -21,9 +21,5 @@ endglobal
 
 context "math()"
 snippet "\b(\d+)rmn" "罗马数字 Roman Number" r
-`!p
-result = int_to_roman(int(match.group(1)))
-if result:
-	snip.rv = '\\mathrm{' + int_to_roman(int(match.group(1))) + '}'
-`
+`!p snip.rv = '\\mathrm{' + result + '}' if result = int_to_roman(int(match.group(1)))`
 endsnippet

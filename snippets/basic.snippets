@@ -8,8 +8,7 @@ snippet type "片段类别 Snippet type" b
 ################################################################
 #                                                              #
 #`!p
-string_length = len(t[1].encode('gbk')); front_num = (62 - string_length) // 2
-snip.rv = ' ' * front_num`$1`!p snip.rv = ' ' * (62 - front_num - string_length)`#
+string_length = len(t[1].encode('gbk')); front_num = (62 - string_length) // 2; snip.rv = ' ' * front_num`$1`!p snip.rv = ' ' * (62 - front_num - string_length)`#
 #                                                              #
 ################################################################
 $0

@@ -57,9 +57,7 @@ snippet 22 "待办 Todo" b
 endsnippet
 
 snippet "^(\s*)- \[([ x])\] (.+)" "待办 Todo" r
-`!p
-snip.rv = match.group(1) + '- [' + (' ' if match.group(2) == 'x' else 'x') + '] ' + match.group(3)
-`
+`!p snip.rv = match.group(1) + '- [' + (' ' if match.group(2) == 'x' else 'x') + '] ' + match.group(3)`
 endsnippet
 
 context "text()"

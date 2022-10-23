@@ -3,18 +3,19 @@ global !p
 from builtin import choose_next
 from mdtex.scopes import math
 
-def bar_hat_vec(target, word, subscript = ''):
-    return '\\' + target + '{' + ('\\' + word + 'math' if word in special_bar_hat_vec else word) + '}' + (subscript or '')
-
-def long_bar_hat_vec(target, word, subscript = ''):
-    return map_bar_hat_vec[target] + '{' + word + '}' + (subscript or '')
-
 special_bar_hat_vec = ['i', 'j']
-special_hbar = ['\\bar{h}', '\\hbar']
-map_bar_hat_vec = {'bar': '\\overline', 'hat': '\\widehat', 'vec': '\\overrightarrow'}
+special_hbar        = ['\\bar{h}', '\\hbar']
+map_bar_hat_vec     = {'bar': '\\overline', 'hat': '\\widehat', 'vec': '\\overrightarrow'}
+
 bars = ['\\bar', '\\overline']
 hats = ['\\hat', '\\widehat']
 vecs = ['\\vec', '\\overrightarrow']
+
+def bar_hat_vec(target, word, subscript = ''):
+    return '\\' + target + '{' + ('\\' + word + 'math' if word in special_bar_hat_vec else word) + '}' + subscript
+
+def long_bar_hat_vec(target, word, subscript = ''):
+    return map_bar_hat_vec[target] + '{' + word + '}' + subscript
 
 endglobal
 
@@ -26,9 +27,7 @@ endglobal
 
 context "math()"
 snippet "(\\bar{h}|\\hbar)\\" "hbar" ir
-`!p
-snip.rv = choose_next(match.group(1), special_hbar, 2)
-`
+`!p snip.rv = choose_next(match.group(1), special_hbar, 2)`
 endsnippet
 
 context "math()"
@@ -48,21 +47,15 @@ endsnippet
 # ×: \bar{a}_{\dfrac{1}{2}} --> \overline{a}_{\dfrac{1}{2}}
 context "math()"
 snippet "(\\bar|\\overline)(\{[\\a-zA-Z]+\s?\})((?:[_^](?:[\da-zA-Z]|\{[\\\w\d\s]+\}))?)" "拔 Bar" r
-`!p
-snip.rv = choose_next(match.group(1), bars, 2) + match.group(2) + match.group(3)
-`
+`!p snip.rv = choose_next(match.group(1), bars, 2) + match.group(2) + match.group(3)`
 endsnippet
 
 context "math()"
 snippet "(\\hat|\\widehat)(\{[\\a-zA-Z]+\s?\})((?:[_^](?:[\da-zA-Z]|\{[\\\w\d\s]+\}))?)" "帽 Hat" r
-`!p
-snip.rv = choose_next(match.group(1), hats, 2) + match.group(2) + match.group(3)
-`
+`!p snip.rv = choose_next(match.group(1), hats, 2) + match.group(2) + match.group(3)`
 endsnippet
 
 context "math()"
 snippet "(\\vec|\\overrightarrow)(\{[\\0a-zA-Z]+\s?\})((?:[_^](?:[\da-zA-Z]|\{[\\\w\d\s]+\}))?)" "向量 Vector" r
-`!p
-snip.rv = choose_next(match.group(1), vecs, 2) + match.group(2) + match.group(3)
-`
+`!p snip.rv = choose_next(match.group(1), vecs, 2) + match.group(2) + match.group(3)`
 endsnippet
