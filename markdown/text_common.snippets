@@ -2,6 +2,7 @@ global !p
 
 from mdtex.scopes import text
 from md.text import *
+from mdtex.variables import *
 
 endglobal
 
@@ -15,14 +16,15 @@ endglobal
 # No longer Support automatically add space (in case of BUG and instability)
 context "text()"
 snippet '(?a)(\W?)\blm' "行内公式 Inline Formula" Ar
-`!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ')`\($1\) $0
+`!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ') + \
+              delis_i[deli_i_option][0]`$1`!p snip.rv = delis_i[deli_i_option][1]` $0
 endsnippet
 
 context "text()"
 snippet dm "行间公式 Display Formula" Ab
-\[
+`!p snip.rv = delis_d[deli_d_option][0]`
 $1
-\]
+`!p snip.rv = delis_d[deli_d_option][1]`
 $0
 endsnippet
 

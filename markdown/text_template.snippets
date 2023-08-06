@@ -17,21 +17,21 @@ endglobal
 #                                                              #
 ################################################################
 
-context "not snip.line and snip.column == 3"
+context "snip.line == 0 and snip.column == 3"
 snippet temp "模板 Temp" b
 `!p
-ifweek  = "Week" in snip.fn
-snip.rv = "## " + (("第 " + str(int(snip.fn[5:7])) + " 周") if ifweek else snip.fn[:-3])
+ifweek  = "Week" in snip.basename
+snip.rv = "## " + (("第 " + str(int(snip.basename[5:7])) + " 周") if ifweek else snip.basename)
 `
 
 - ${1:`!p
 if ifweek:
-    week    = get_week('20' + snip.fn[8:16])
+    week    = get_week('20' + snip.basename[8:16])
     snip.rv = str(week[0]) + " ~ " + str(week[1])
 else:
-    snip.rv = snip.fn[:-3]
+    snip.rv = snip.basename
 `}
-- 编写时间：${2:`!p snip.rv = snip.fn[11:16] if ifweek else snip.fn[5:-3]`}
+- 编写时间：${2:`!p snip.rv = snip.basename[11:16] if ifweek else snip.basename[5:]`}
 
 [toc]
 
@@ -44,7 +44,7 @@ $3
 $0
 endsnippet
 
-context "not snip.line and snip.column == 0"
+context "snip.line == 0 and snip.column == 0"
 snippet p "判断正误 True or False (For Vanki)" b
 判断正误：
 
