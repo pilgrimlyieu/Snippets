@@ -1,7 +1,7 @@
 global !p
 
 from mdtex.scopes import text
-from common.time import get_modification_time
+from common.time import get_creation_time, get_modification_time
 
 def front_matter(snip):
     pre_title = snip.buffer[1][7:]
@@ -37,7 +37,12 @@ endsnippet
 
 context "text()"
 snippet date "Date" b
-date: 
+date: `!p snip.rv = get_modification_time(path)`
+endsnippet
+
+context "text()"
+snippet dat "Date Update" b
+date: `!p snip.rv = get_modification_time(path)`
 endsnippet
 
 context "text()"
