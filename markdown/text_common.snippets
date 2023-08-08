@@ -23,7 +23,7 @@ endsnippet
 context "text()"
 snippet dm "行间公式 Display Formula" Ab
 `!p snip.rv = delis_d[deli_d_option][0]`
-$1
+${1:${VISUAL}}
 `!p snip.rv = delis_d[deli_d_option][1]`
 $0
 endsnippet
@@ -53,13 +53,8 @@ snippet todo "待办 Todo" b
 - [${1|x, |}] $0
 endsnippet
 
-context "text()"
-snippet 22 "待办 Todo" b
-- [${1|x, |}] $0
-endsnippet
-
-snippet "^(\s*)- \[([ x])\] (.+)" "待办 Todo" r
-`!p snip.rv = match.group(1) + '- [' + (' ' if match.group(2) == 'x' else 'x') + '] ' + match.group(3)`
+snippet "- \[([ x])\] (.+)" "待办 Todo" br
+`!p snip.rv = '- [' + (' ' if match.group(1) == 'x' else 'x') + '] ' + match.group(2)`
 endsnippet
 
 context "text()"
@@ -69,7 +64,7 @@ endsnippet
 
 context "text()"
 snippet img "图像 Image" w
-![](${2:images/${3:${VISUAL}}})$0
+![](${2:/images/${3:${VISUAL}}})$0
 endsnippet
 
 context "text()"
@@ -100,7 +95,7 @@ snippet detail "详情 Disclosure" w
 <details>
 ${1:<summary>${2}</summary>}
 
-$3
+${3:${VISUAL}}
 
 </details>
 $0
@@ -134,6 +129,11 @@ endsnippet
 context "text()"
 snippet == "高亮 Mark" i
 ==${1:${VISUAL}}==$0
+endsnippet
+
+context "text()"
+snippet ~~ "删除 Delete" i
+~~${1:${VISUAL}}~~$0
 endsnippet
 
 context "text()"

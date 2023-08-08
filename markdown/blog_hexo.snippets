@@ -11,10 +11,11 @@ def front_matter(snip):
 title: ${{1:{title}}}
 date: {date}
 updated: {date}
-draft: ${{2|true,false|}}
-katex: ${{3|true,false|}}
-categories: $4
-tags: $5
+description: $2
+draft: ${{3|true,false|}}
+katex: ${{4|true,false|}}
+categories: $5
+tags: $6
 ---
 $0'''
     snip.expand_anon(template.format(title = pre_title, date = pre_date))
@@ -26,49 +27,60 @@ pre_expand "front_matter(snip)"
 snippet @ "Template" A
 endsnippet
 
-context "text()"
-snippet note "Annotation" w
-{% note ${1|default,primary,success,info,warning,danger} %}
-##### $2
-$3
-{% endnote %}
-$0
+context "text() and snip.column == 3"
+snippet date "Date" A
+date: 
 endsnippet
 
-context "text()"
-snippet date "Date" b
+# context "text() and snip.column == 3"
+snippet datc "Date Create"
+date: `!p snip.rv = get_creation_time(path)`
+endsnippet
+
+context "text() and snip.column == 3"
+snippet datu "Date Update"
 date: `!p snip.rv = get_modification_time(path)`
 endsnippet
 
-context "text()"
-snippet dat "Date Update" b
-date: `!p snip.rv = get_modification_time(path)`
-endsnippet
-
-context "text()"
-snippet upd "Updated" b
+context "text() and snip.column == 2"
+snippet upd "Updated"
 updated: `!p snip.rv = get_modification_time(path)`
 endsnippet
 
 context "text()"
-snippet tabs "Tabs" b
+snippet tag "Tags" w
+{% ${1:${VISUAL}} %}$0
+endsnippet
+
+
+context "text() and snip.column == 3"
+snippet note "Annotation"
+{% note ${1|default,primary,success,info,warning,danger|} %}
+##### $2
+${3:${VISUAL}}
+{% endnote %}
+$0
+endsnippet
+
+context "text() and snip.column == 3"
+snippet tabs "Tabs"
 {% tabs $1, ${2:-1} %}
-$3
+${3:${VISUAL}}
 {% endtabs %}
 $0
 endsnippet
 
-context "text()"
-snippet tab "Tab" b
+context "text() and snip.column == 2"
+snippet tab "Tab"
 <!-- tab $1 -->
-$2
+${2:${VISUAL}}
 <!-- endtab -->
 $0
 endsnippet
 
 context "text()"
 snippet label "Label" w
-{% label ${1|default,primary,success,info,warning,danger|} @$2 %}$0
+{% label ${1|default,primary,success,info,warning,danger|} @${2:${VISUAL}} %}$0
 endsnippet
 
 context "text()"
@@ -84,11 +96,5 @@ endsnippet
 
 context "text()"
 snippet "^tags: (.+)" "Tags Format" ir
-`!p
-tags = match.group(1).split(",")
-format_tags = "tags:"
-for tag in tags:
-    format_tags += "\n  - " + tag.strip()
-snip.rv = format_tags
-`
+tags: [`!p snip.rv = match.group(1).replace(",", ", ")`]
 endsnippet
