@@ -58,13 +58,18 @@ snippet "- \[([ x])\] (.+)" "待办 Todo" br
 endsnippet
 
 context "text()"
-snippet link "链接 Link" w
+snippet lnk "链接 Link" w
 [${1:${VISUAL}}](${2:https://${3:}})$0
 endsnippet
 
 context "text()"
+snippet imgs "图像 Image" w
+![$1](${2:/}images/${3:${VISUAL}})$0
+endsnippet
+
+context "text()"
 snippet img "图像 Image" w
-![](${2:/images/${3:${VISUAL}}})$0
+![$1](${2:${VISUAL}})$0
 endsnippet
 
 context "text()"

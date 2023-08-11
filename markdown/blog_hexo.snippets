@@ -1,12 +1,16 @@
 global !p
 
 from mdtex.scopes import text
-from common.time import get_creation_time, get_modification_time
+from common.time import get_creation_time, get_modification_time, get_now_time
 
 def front_matter(snip):
-    pre_title = snip.buffer[1][7:]
-    pre_date = snip.buffer[2][6:]
-    snip.buffer[0:4] = ''
+    try:
+        pre_title = snip.buffer[1][7:]
+        pre_date = snip.buffer[2][6:]
+    except:
+        pre_title = ""
+        pre_date = ""
+    snip.buffer[0:len(snip.buffer)] = ''
     template = '''---
 title: ${{1:{title}}}
 date: {date}
@@ -32,7 +36,7 @@ snippet date "Date" A
 date: 
 endsnippet
 
-# context "text() and snip.column == 3"
+context "text() and snip.column == 3"
 snippet datc "Date Create"
 date: `!p snip.rv = get_creation_time(path)`
 endsnippet
@@ -42,9 +46,14 @@ snippet datu "Date Update"
 date: `!p snip.rv = get_modification_time(path)`
 endsnippet
 
-context "text() and snip.column == 2"
-snippet upd "Updated"
-updated: `!p snip.rv = get_modification_time(path)`
+context "text() and snip.column == 3"
+snippet datn "Date Now"
+date: `!p snip.rv = get_now_time()`
+endsnippet
+
+context "text()"
+snippet "updated: (.*)" "Updated" br
+updated: `!p snip.rv = get_now_time()`
 endsnippet
 
 context "text()"
@@ -52,13 +61,10 @@ snippet tag "Tags" w
 {% ${1:${VISUAL}} %}$0
 endsnippet
 
-
-context "text() and snip.column == 3"
-snippet note "Annotation"
-{% note ${1|default,primary,success,info,warning,danger|} %}
-##### $2
-${3:${VISUAL}}
-{% endnote %}
+context "text() and snip.column == 2"
+snippet adm "Admonition"
+!!! ${1|note,info,warning,error,exapmle,quote|} ${2:""}
+    ${3:${VISUAL}}
 $0
 endsnippet
 
