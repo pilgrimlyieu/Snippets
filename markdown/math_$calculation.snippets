@@ -1,0 +1,49 @@
+global !p
+
+from mdtex.scopes import math
+from sympy import *
+from subprocess import check_output, TimeoutExpired
+from re import sub
+
+endglobal
+
+context "math()"
+snippet sym "SymPy block" w
+sympy $1 sympy$0
+endsnippet
+
+context "math()"
+snippet wlf "WolframScript block" w
+wolfram $1 wolfram$0
+endsnippet
+
+priority 1
+context "math()"
+snippet 'sympy\s(.*)\ssympy' "Evaluate SymPy" wr
+`!p
+x, y, z, t = symbols('x y z t')
+k, m, n = symbols('k m n', integer=True)
+f, g, h = symbols('f g h', cls=Function)
+result = latex(eval(match.group(1).replace('\\', '') \
+                                  .replace('^', '**') \
+                                  .replace('{', '(') \
+                                  .replace('}', ')')))
+result = sub(r'(\s|\W?)e(?![a-zA-Z])', r'\g<1>\\e', result) # 改 e 样式
+result = result.replace(r'\, d', r'\d ') # 改微分算子
+snip.rv = result
+`
+endsnippet
+
+context "math()"
+snippet 'wolfram\s(.*)\swolfram_?{?(\d{,2})}?' "Evaluate WolframScript" wr
+`!p
+code = 'ToString[' + match.group(1) + ', TeXForm]'
+try:
+    result = check_output(['wolframscript', '-code', code], shell=True, encoding='utf-8', timeout=int(match.group(2)) if match.group(2) else 10).strip()
+except TimeoutExpired:
+    result = ''
+result = sub(r'(\s|\W?)e(?![a-zA-Z])', r'\g<1>\\e', result) # 改 e 样式
+result = result.replace(r'\, d', r'\d ') # 改微分算子
+snip.rv = result
+`
+endsnippet
