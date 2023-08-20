@@ -30,7 +30,7 @@ result = latex(eval(match.group(1).replace('\\', '') \
                                   .replace('^', '**') \
                                   .replace('{', '(') \
                                   .replace('}', ')')))
-result = sub(r'(\s|\W?)e(?![a-zA-Z])', r'\g<1>\\e', result) # 改 e 样式
+result = sub(r'(\s|\W?)e(?=\W)', r'\g<1>\\e', result) # 改 e 样式
 result = result.replace(r'\, d', r'\d ') # 改微分算子
 snip.rv = result
 `
@@ -44,10 +44,10 @@ try:
     result = check_output(['wolframscript', '-code', code], \
                           shell    = True, \
                           encoding = 'utf-8', \
-                          timeout  = int(match.group(2)) if match.group(2) else wolframscript_timeout_default).strip()
+                          timeout  = int(match.group(2) or 0) or wolframscript_timeout_default).strip()
 except TimeoutExpired:
     result = ''
-result = sub(r'(\s|\W?)e(?![a-zA-Z])', r'\g<1>\\e', result) # 改 e 样式
+result = sub(r'(\s|\W?)e(?=\W)', r'\g<1>\\e', result) # 改 e 样式
 result = result.replace(r'\, d', r'\d ') # 改微分算子
 snip.rv = result
 `
