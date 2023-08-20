@@ -16,10 +16,8 @@ snippet // "分数 Fraction" iA
 \dfrac{${1:${VISUAL}}}{$2}$0
 endsnippet
 
-# 已知问题：#1
-# Known issue: #1
 context "math()"
-snippet "^.*\)/" "大型括号分数 Large Parenthes Fraction" rA
+snippet "\(.*\)/" "大型括号分数 Large Parenthes Fraction" rA
 `!p
 string = match.string[:-1]
 depth = 0
