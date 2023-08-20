@@ -16,13 +16,17 @@ title: ${{1:{title}}}
 date: {date}
 updated: {date}
 description: $2
-draft: ${{3|true,false|}}
-katex: ${{4|true,false|}}
-categories: $5
-tags: $6
+draft: {draft}
+comments: {comments}
+katex: ${{3|true,false|}}
+categories: $4
+tags: $5
 ---
 $0'''
-    snip.expand_anon(template.format(title = pre_title, date = pre_date))
+    snip.expand_anon(template.format(title    = pre_title, \
+                                     date     = pre_date, \
+                                     draft    = "true" if ".private" in pre_title else "false", \
+                                     comments = "false" if ".private" in pre_title else "true"))
 
 endglobal
 

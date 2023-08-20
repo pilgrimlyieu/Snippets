@@ -5,6 +5,8 @@ from sympy import *
 from subprocess import check_output, TimeoutExpired
 from re import sub
 
+wolframscript_timeout_default = 10
+
 endglobal
 
 context "math()"
@@ -19,10 +21,10 @@ endsnippet
 
 priority 1
 context "math()"
-snippet 'sympy\s(.*)\ssympy' "Evaluate SymPy" wr
+snippet 'sympy (.*) sympy' "Evaluate SymPy" wr
 `!p
 x, y, z, t = symbols('x y z t')
-k, m, n = symbols('k m n', integer=True)
+i, j, k = symbols('i j k', integer=True)
 f, g, h = symbols('f g h', cls=Function)
 result = latex(eval(match.group(1).replace('\\', '') \
                                   .replace('^', '**') \
@@ -35,11 +37,14 @@ snip.rv = result
 endsnippet
 
 context "math()"
-snippet 'wolfram\s(.*)\swolfram_?{?(\d{,2})}?' "Evaluate WolframScript" wr
+snippet 'wolfram (.*) wolfram:?(\d{,2})' "Evaluate WolframScript" wr
 `!p
 code = 'ToString[' + match.group(1) + ', TeXForm]'
 try:
-    result = check_output(['wolframscript', '-code', code], shell=True, encoding='utf-8', timeout=int(match.group(2)) if match.group(2) else 10).strip()
+    result = check_output(['wolframscript', '-code', code], \
+                          shell    = True, \
+                          encoding = 'utf-8', \
+                          timeout  = int(match.group(2)) if match.group(2) else wolframscript_timeout_default).strip()
 except TimeoutExpired:
     result = ''
 result = sub(r'(\s|\W?)e(?![a-zA-Z])', r'\g<1>\\e', result) # 改 e 样式
