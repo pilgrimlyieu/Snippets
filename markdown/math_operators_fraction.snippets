@@ -19,7 +19,7 @@ endsnippet
 context "math()"
 snippet "\(.*\)/" "大型括号分数 Large Parenthes Fraction" rA
 `!p
-string = match.string[:-1]
+string = match.group(0)[:-1]
 depth = 0
 for i in range(len(string) - 1, -1, -1):
     char = string[i]
