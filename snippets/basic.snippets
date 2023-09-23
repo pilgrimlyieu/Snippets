@@ -72,6 +72,14 @@ def $1($2):
     $0
 endsnippet
 
+snippet text "文本片段 Text Snippet" b
+context "${1:text}()"
+snippet ${2:Trigger} "${3:Description}" ${4:w}`!p snip.rv = "r" if (t[2][:1] == "\"" and "r" not in t[4]) else ""`
+$5
+`echo endsnippet`
+$0
+endsnippet
+
 snippet math "数学片段 Math Snippet" b
 context "${1|math,chem,inline_math,display_math|}()"
 snippet ${2:Trigger} "${3:Description}" ${4:w}`!p snip.rv = "r" if (t[2][:1] == "\"" and "r" not in t[4]) else ""`

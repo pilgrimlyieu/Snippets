@@ -1,6 +1,15 @@
 global !p
 
 from mdtex.scopes import math
+from builtin import choose_next
+
+matches = {
+    "("  : ")",
+    "["  : "]",
+    "\\{": "\\}",
+}
+
+bigs = ["big", "Big", "bigg", "Bigg"]
 
 endglobal
 
@@ -11,16 +20,41 @@ endglobal
 ################################################################
 
 context "math()"
+snippet LR "左右 Left Right" Aw
+\left$1 $2 \right`!p
+try:
+    snip.rv = matches[t[1]]
+except:
+    pass
+` $0
+endsnippet
+
+context "math()"
+snippet \) "括号 Parenthesis" w
+\left( $1 \right) $0
+endsnippet
+
+context "math()"
+snippet \] "中括号 Bracket" w
+\left[ $1 \right] $0
+endsnippet
+
+context "math()"
 snippet \} "大括号 Curly Braces" Ai
-\lbrace $1\rbrace$0
+\left\lbrace $1 \right\rbrace$0
 endsnippet
 
 context "math()"
 snippet \| "竖括号 Verticals" Ai
-\lVert $1\rVert$0
+\left\lVert $1 \right\rVert$0
 endsnippet
 
 context "math()"
-snippet "<([^>])+>" "Description" r
-\lang `!p snip.rv = match.group(1)`\rang
+snippet "<([^>])+?>" "Description" r
+\left\lang `!p snip.rv = match.group(1)` \right\rang
+endsnippet
+
+context "math()"
+snippet "\\(big|Big|bigg|Bigg)" "Big" r
+\\`!p snip.rv = choose_next(match.group(1), bigs, 4)`
 endsnippet

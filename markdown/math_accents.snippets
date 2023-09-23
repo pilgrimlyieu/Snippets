@@ -12,10 +12,10 @@ hats = ['\\hat', '\\widehat']
 vecs = ['\\vec', '\\overrightarrow']
 
 def bar_hat_vec(target, word, subscript = ''):
-    return '\\' + target + '{' + ('\\' + word + 'math' if word in special_bar_hat_vec else word) + '}' + subscript
+    return '\\' + target + '{' + ('\\' + word + 'math' if word in special_bar_hat_vec else word) + '}' + (subscript or '')
 
 def long_bar_hat_vec(target, word, subscript = ''):
-    return map_bar_hat_vec[target] + '{' + word + '}' + subscript
+    return map_bar_hat_vec[target] + '{' + word + '}' + (subscript or '')
 
 endglobal
 
@@ -32,12 +32,12 @@ endsnippet
 
 context "math()"
 snippet "(\b[a-zA-Z0]|\\[a-zA-Z]+)([_^](?:\{\S+\s?\}|[\da-zA-Z]))?(bar|hat|vec)" "拔/帽/向量 Bar/Hat/Vector" Ar
-`!p snip.rv = bar_hat_vec(match.group(3) or match.group(2), match.group(1), match.group(2) if match.group(3) else '')`
+`!p snip.rv = bar_hat_vec(match.group(3) or match.group(2), match.group(1), match.group(2))`
 endsnippet
 
 context "math()"
 snippet "(?<!\\)\b([a-zA-Z]{2,})([_^](?:\{\S+\s?\}|[\da-zA-Z]))?(bar|hat|vec)" "长拔/帽/向量 Long Bar/Hat/Vector" Ar
-`!p snip.rv = long_bar_hat_vec(match.group(3) or match.group(2), match.group(1), match.group(2) if match.group(3) else '')`
+`!p snip.rv = long_bar_hat_vec(match.group(3) or match.group(2), match.group(1), match.group(2))`
 endsnippet
 
 # 为避免冲突，仅支持包含简单下标的变形
