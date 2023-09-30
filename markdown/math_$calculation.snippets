@@ -19,6 +19,7 @@ snippet wlf "WolframScript block" w
 wolfram $1 wolfram$0
 endsnippet
 
+priority 1
 context "math()"
 snippet \sym "SymPy block" w
 \\sympy $1 \\sympy$0
@@ -29,7 +30,6 @@ snippet \wlf "WolframScript block" w
 \\wolfram $1 \\wolfram$0
 endsnippet
 
-priority 1
 context "math()"
 snippet 'sympy (.*?) sympy' "Evaluate SymPy" wr
 `!p
@@ -79,8 +79,8 @@ snippet 'wolfram (.*?) wolfram:?(\d{,2})' "Evaluate WolframScript" wr
 code = 'ToString[' + match.group(1) + ', TeXForm]'
 try:
     result = check_output(['wolframscript', '-code', code], \
-                          shell    = True, \
                           encoding = 'utf-8', \
+                          creationflags = 0x08000000,\
                           timeout  = int(match.group(2) or 0) or wolframscript_timeout_default).strip()
 except TimeoutExpired:
     result = ''
@@ -90,19 +90,22 @@ snip.rv = result
 `
 endsnippet
 
-# context "math()"
-# snippet '\\wolfram (.*?) \\wolfram:?(\d{,2})' "Evaluate WolframScript" wr
-# `!p
-# code = 'ToString[' + match.group(1) + ', TeXForm]'
-# try:
-#     result = check_output(['wolframscript', '-code', code], \
-#                           shell    = True, \
-#                           encoding = 'utf-8', \
-#                           timeout  = int(match.group(2) or 0) or wolframscript_timeout_default).strip()
-# except TimeoutExpired:
-#     result = ''
-# result = sub(r'(\s|\W?)e(?=\W)', r'\g<1>\\e', result) # 改 e 样式
-# result = result.replace(r'\, d', r'\d ') # 改微分算子
-# snip.rv = result
-# `
-# endsnippet
+context "math()"
+snippet '\\wolfram (.*?) \\wolfram:?(\d{,2})' "Evaluate WolframScript" wr
+`!p
+tex = match.group(1).replace(r'\e', r' e')
+tex = tex.replace(r'\d ', r'\, d')
+tex = tex.replace('\\', '\\\\')
+code = 'ToString[ToExpression["' + tex + '", TeXForm], TeXForm]'
+try:
+    result = check_output(['wolframscript', '-code', code], \
+                          encoding      = 'utf-8', \
+                          creationflags = 0x08000000,\
+                          timeout       = int(match.group(2) or 0) or wolframscript_timeout_default).strip()
+except TimeoutExpired:
+    result = ''
+result = sub(r'(\s|\W?)e(?=\W)', r'\g<1>\\e', result) # 改 e 样式
+result = result.replace(r'\, d', r'\d ') # 改微分算子
+snip.rv = result
+`
+endsnippet
