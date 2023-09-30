@@ -1,20 +1,15 @@
 global !p
 
 from mdtex.scopes import math, inline_math, display_math
-
-default_row    = 2
-default_column = 2
-
-def get_content(text):
-	return text[1:-2 if text[-1] == '.' else -1]
+from mdtex.matrix import *
 
 endglobal
 
 # 矩阵片段
 ## 格式（?xxx? 代表 xxx 可省略）
-### `option` + mm + ?`size`? + ?\`content`\.? + ?%`command`?
+### `type` + mm + ?`option`;? + ?`size`? + ?[`content`]&?
 ## 参数
-### `option` {{{1
+### `type` {{{1
 #### 'm': 无边框矩阵
 #### 'p': 小括号边框矩阵
 #### 'b': 中括号边框矩阵
@@ -22,31 +17,40 @@ endglobal
 #### 'v': 行列式
 #### 'V': 范数
 ## }}}1
+### `option` {{{1
+#### 格式（优先级自上而下）
+##### ‘0': 零矩阵。全为 0。无 tabstop。
+##### 'i': （方阵）单位矩阵。对角线全为 1。无 tabstop
+##### 'd': （方阵）对角矩阵。对角线全为 content。对角线有 tabstop
+##### 'D': （方阵）反对角矩阵。反对角线全为 content。反对角线有 tabstop
+##### 't': （方阵）上三角矩阵。上三角全为 content。上三角有 tabstop
+##### 'T': （方阵）下三角矩阵。下三角全为 content。下三角有 tabstop
+##### 'c': （方阵）常对角矩阵。首行、列全为 content。首行、列有 tabstop
+##### 's': （方阵）对称矩阵。上三角全为 content。上三角有 tabstop
+##### 'o': （方阵）形成标准 4x4 省略矩阵。未省略内容有 tabstop
+#### 选项
+##### '-': 不填充 0 元素
+##### 'O': 禁用自动省略号
+##### '1': 为 0 元素添加 tabstop
+##### '2': 禁用上述 tabstop
+##### 
+## }}}
 ### `size` {{{1
 #### m×n 为 m 行 n 列
-#### 默认 2×2 
+#### 默认 3×3 
 #### 'n'  n×n
 #### 'mn' m×n
 ## }}}1
 ### `content` {{{1
 #### 预填充内容
-#### 内容包含空格时需增加 '.' 明确内容结束
-#### 保留关键词
-##### '$': 作为行数字递推关系占位符（最多 10 个）
-##### '#': 作为列数字递推关系占位符（最多 10 个）
-##### '@': 作为全局数字递推关系占位符（最多 10 个）
+#### 内容包含空格时需增加 '&' 明确内容结束
+#### 关键词
+##### '\r': 行序号
+##### '\c': 列序号
+##### '\n': 序号
+##### '#': tabstop（依次作为 tabstop。若无，则全部作为 tabstop）
+##### '`\x?`': 用「`」包裹可对序号进行 + - * / 的简单运算
 ## }}}1
-### `command` {{{1
-#### 指令
-##### 或许可指定递推数字的起始数字与间隔数字
-##### 内置命令缩写以便快捷输入矩阵
-##### 以 '|' 为命令， ';' 为参数分界符
-## }}}1
-
-context "math()"
-snippet mat "矩阵格式" w
-${1|b,v,p,V,B,m|}mm$2\\$3\\.%$0
-endsnippet
 
 priority 1
 context "math()"
@@ -54,45 +58,10 @@ snippet "(?a)\b([mpbBvV]mm\d)" "优化矩阵 Matrix Tip" Ar
 `!p snip.rv = match.group(1)`
 endsnippet
 
-context "display_math()"
-snippet "(?a)\b([mpbBvV])mm(\d{,2})((?:\\\S*\\|\\.*\\\.)?)((?:%[a-zA-Z\d|;$@#]*)?)" "行间矩阵 Display Matrix" r
+context "inline_math()"
+snippet "(?a)\b(?P<type>[mpbBvV])mm(?P<option>([0idDtTcsoO12_-]*;)?)(?P<size>\d{,2})(\[(?P<content1>.*?)\]|(?P<content2>[^\s]*?))&" "行内矩阵 Inline Matrix" r
 endsnippet
 
-# ?xxx? 代表 xxx 可省略
-## 指令 {{{1
-### $ + ?`order`? + ?;`start`? + ?;`step`? {{{2
-#### 表示第 `order` 个 $ 代表的数字的有关行线性递推关系
-#### 如 `content` 为 "a_{$ 1}"，`command` 可为 "$;2;2" 来表示一定线性递推的编码，如对 2×2 矩阵结果为 a_{2 1} a_{2 1} a_{4 1} a_{4 1}
-#### 默认为 "$0;1;1"
-### }}}2,
-### # + ?`order`? + ?;`start`? + ?;`step`? {{{2
-#### 表示第 `order` 个 # 代表的数字的有关列线性递推关系
-#### 如 `content` 为 "a_{$#}"，`command` 可为 "" 来表示一定线性递推的编码，如对 2×2 矩阵结果为 a_{11} a_{12} a_{21} a_{22}
-#### 默认为 "#0;1;1"
-### }}}2
-### @ + ?`order`? + ?;`start`? + ?;`step`? + ?;`reverse`? {{{2
-#### 表示第 `order` 个 @ 代表的数字的有关位置线性递推关系
-#### 如 `content` 为 "a_{@}"，`command` 可为 "@;8;3" 来表示一定线性递推的编码，如对 2×2 矩阵结果为 a_{8} a_{11} a_{14} a_{17}
-#### 默认为 "@0;1;1;0"
-### }}}2
-## }}}1
-## 编码 {{{1
-### a
-#### 表示单位矩阵
-### A
-#### 表示大型单位矩阵
-### b + ?`variable`? + ?`rowsubscript`? + ?`columnsubscript`?
-#### 表示一般矩阵
-#### 默认为 "ba;m;n"
-### B + ?`variable`? + ?`rowsubscript`? + ?`columnsubscript`?
-#### 表示大型一般矩阵
-#### 默认为 "Ba;m;n"
-### c + ?`start`? + ?;`step`?
-#### 表示对角矩阵
-#### 默认为 "c"
-### C + ?`start`? + ?;`step`?
-#### 表示大型对角矩阵
-#### 默认为 "C"
-### d
-#### 旋转矩阵（二维）
-## }}}1
+context "display_math()"
+snippet "(?a)\b(?P<type>[mpbBvV])mm(?P<option>([0idDtTcsoO12_-]*;)?)(?P<size>\d{,2})(\[(?P<content1>.*?)\]|(?P<content2>[^\s]*?))&" "行间矩阵 Display Matrix" r
+endsnippet
