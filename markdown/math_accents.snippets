@@ -2,6 +2,7 @@ global !p
 
 from builtin import choose_next
 from mdtex.scopes import math
+from mdtex.cmdsub import command_swap
 
 special_bar_hat_vec = ['i', 'j']
 special_hbar        = ['\\bar{h}', '\\hbar']
@@ -26,6 +27,11 @@ endglobal
 ################################################################
 
 context "math()"
+snippet "\\?(vec|bar|hat)" "拔/帽/向量 Bar/Hat/Vector" wr
+\\`!p snip.rv = match.group(1) + "{"`${1:${VISUAL}}}$0
+endsnippet
+
+context "math()"
 snippet "(\\bar{h}|\\hbar)\\" "hbar" ir
 `!p snip.rv = choose_next(match.group(1), special_hbar, 2)`
 endsnippet
@@ -36,10 +42,16 @@ snippet "(\b[a-zA-Z0]|\\[a-zA-Z]+)([_^](?:\{\S+\s?\}|[\da-zA-Z]))?(bar|hat|vec)"
 endsnippet
 
 context "math()"
-snippet "(?<!\\)\b([a-zA-Z]{2,})([_^](?:\{\S+\s?\}|[\da-zA-Z]))?(bar|hat|vec)" "长拔/帽/向量 Long Bar/Hat/Vector" Ar
+snippet "(?<!\\)\b(\w{2,})([_^](?:\{\S+\s?\}|[\da-zA-Z]))?(bar|hat|vec)" "长拔/帽/向量 Long Bar/Hat/Vector" Ar
 `!p snip.rv = long_bar_hat_vec(match.group(3) or match.group(2), match.group(1), match.group(2))`
 endsnippet
 
+context "math()"
+snippet "((\\(bar|overline|hat|widehat|vec|overrightarrow))\{(.*)\})" "拔/帽/向量 Bar/Hat/Vector" r
+`!p snip.rv = command_swap(match.group(1), *(bars if match.group(2) in bars else hats if match.group(2) in hats else vecs))`
+endsnippet
+
+priority 1
 # 为避免冲突，仅支持包含简单下标的变形
 # Only support simple subscript to avoid comflict
 # √: \bar{a}_a              --> \overline{a}_a
