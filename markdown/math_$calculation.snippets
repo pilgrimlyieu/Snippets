@@ -132,7 +132,7 @@ snip.rv = process_latex(result)
 endsnippet
 
 context "display_math() and have_block('sympy', snip)"
-pre_expand "calculate_sympy(snip)"
+post_expand "calculate_sympy(snip)"
 snippet sympy "Evaluate Sympy" b
 endsnippet
 
@@ -160,7 +160,7 @@ endsnippet
 # endsnippet
 
 # context "display_math() and have_block('sympy', snip)"
-# pre_expand "calculate_sympy(snip, True)"
+# post_expand "calculate_sympy(snip, True)"
 # snippet \\sympy "Evaluate Sympy" b
 # endsnippet
 
@@ -180,7 +180,7 @@ snip.rv = process_latex(result)
 endsnippet
 
 context "display_math() and have_block('wolfram', snip)"
-pre_expand "calculate_wolfram(snip, False, match.group(1))"
+post_expand "calculate_wolfram(snip, False, match.group(1))"
 snippet "^wolfram:?(\d{,2})" "Evaluate WolframScript" r
 endsnippet
 
@@ -201,6 +201,6 @@ snip.rv = process_latex(result)
 endsnippet
 
 context "display_math() and have_block('wolfram', snip)"
-pre_expand "calculate_wolfram(snip, True, match.group(1))"
+post_expand "calculate_wolfram(snip, True, match.group(1))"
 snippet "^\\wolfram:?(\d{,2})" "Evaluate WolframScript" r
 endsnippet
