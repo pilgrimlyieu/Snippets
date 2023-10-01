@@ -1,56 +1,142 @@
 global !p
 
-from mdtex.scopes import math
+from mdtex.scopes import inline_math, display_math
 from sympy import *
-from subprocess import check_output, TimeoutExpired
 from re import sub
+from subprocess import check_output, TimeoutExpired
 
 wolframscript_timeout_default = 10
 
+def pre_process_text(text):
+    return text.replace('\\', '') \
+               .replace('^', '**') \
+               .replace('{', '(') \
+               .replace('}', ')')
+
+def pre_process_latex(text):
+    return text.replace(r'\e', r' e') \
+               .replace(r'\d ', r'\, d') \
+               .replace('\\', '\\\\')
+
+def process_latex(text):
+    return sub(r'(\s|\W?)e(?=\W)', r'\g<1>\\e', text) \
+               .replace(r'\, d', r'\d ')
+
+def have_block(form, snip):
+    status = 0
+    for line in snip.buffer[:snip.line]:
+        if line == form:
+            status = not status
+    return status
+
+def get_block(form, snip):
+    status = 0
+    for index, line in enumerate(snip.buffer[:snip.line]):
+        if line == form:
+            status = not status
+            if status:
+                start = index
+    result = '\n'.join(snip.buffer[start + 1:snip.line])
+    snip.buffer[start:snip.line + 1] = ['']
+    return result
+
+def calculate_sympy(snip, from_latex = False):
+    block = get_block('sympy', snip)
+    pre_define = '''
+from sympy import *
+x, y, z, t = symbols('x y z t')
+k, m, n = symbols('k m n', integer = True)
+f, g, h = symbols('f g h', cls = Function)
+'''
+    sympy_result = {}
+    exec(pre_define + pre_process_text(block), sympy_result)
+    result = latex(sympy_result['rv'] or '')
+    snip.expand_anon(process_latex(result))
+
+def calculate_wolfram(snip, from_latex = False, timeout = wolframscript_timeout_default):
+    block = get_block('wolfram', snip)
+    wolfram_result = {}
+    if from_latex:
+        code = 'ToString[ToExpression["' + pre_process_latex(block) + '", TeXForm], TeXForm]'
+    else:
+        code = 'ToString[' + block + ', TeXForm]'
+    try:
+        result = check_output(['wolframscript', '-code', code], \
+                              encoding = 'utf-8', \
+                              creationflags = 0x08000000,\
+                              timeout  = int(timeout or wolframscript_timeout_default)).strip()
+    except TimeoutExpired:
+        result = ''
+    snip.expand_anon(process_latex(result))
+
 endglobal
 
-context "math()"
-snippet sym "SymPy block" w
-sympy $1 sympy$0
+context "inline_math()"
+snippet sym "SymPy Block" w
+sympy ${1:${VISUAL}} sympy$0
 endsnippet
 
-context "math()"
-snippet wlf "WolframScript block" w
-wolfram $1 wolfram$0
+context "display_math()"
+snippet sym "SymPy Block" b
+sympy
+${1:${VISUAL}}
+sympy$0
+endsnippet
+
+context "inline_math()"
+snippet wlf "WolframScript Block" w
+wolfram ${1:${VISUAL}} wolfram$0
+endsnippet
+
+context "display_math()"
+snippet wlf "WolframScript Block" b
+wolfram
+${1:${VISUAL}}
+wolfram$0
 endsnippet
 
 priority 1
-context "math()"
-snippet \sym "SymPy block" w
-\\sympy $1 \\sympy$0
+context "inline_math()"
+snippet \sym "SymPy Block" w
+\\sympy ${1:${VISUAL}} \\sympy$0
 endsnippet
 
-context "math()"
-snippet \wlf "WolframScript block" w
-\\wolfram $1 \\wolfram$0
+context "display_math()"
+snippet \sym "SymPy Block" b
+\\sympy
+${1:${VISUAL}}
+\\sympy$0
 endsnippet
 
-context "math()"
+context "inline_math()"
+snippet \wlf "WolframScript Block" w
+\\wolfram ${1:${VISUAL}} \\wolfram$0
+endsnippet
+
+context "display_math()"
+snippet \wlf "WolframScript Block" b
+\\wolfram
+${1:${VISUAL}}
+\\wolfram$0
+endsnippet
+
+context "inline_math()"
 snippet 'sympy (.*?) sympy' "Evaluate SymPy" wr
 `!p
 x, y, z, t = symbols('x y z t')
 i, j, k = symbols('i j k', integer=True)
 f, g, h = symbols('f g h', cls=Function)
-result = latex(
-    eval(
-        match.group(1).replace('\\', '') \
-                      .replace('^', '**') \
-                      .replace('{', '(') \
-                      .replace('}', ')')
-    )
-)
-result = sub(r'(\s|\W?)e(?=\W)', r'\g<1>\\e', result) # 改 e 样式
-result = result.replace(r'\, d', r'\d ') # 改微分算子
-snip.rv = result
+result = latex(eval(pre_process_text(match.group(1))))
+snip.rv = process_latex(result)
 `
 endsnippet
 
-# context "math()"
+context "display_math() and have_block('sympy', snip)"
+pre_expand "calculate_sympy(snip)"
+snippet sympy "Evaluate Sympy" b
+endsnippet
+
+# context "inline_math()"
 # snippet '\\sympy (.*?) \\sympy' "Evaluate SymPy" wr
 # `!p
 # x, y, z, t = symbols('x y z t')
@@ -73,7 +159,12 @@ endsnippet
 # `
 # endsnippet
 
-context "math()"
+# context "display_math() and have_block('sympy', snip)"
+# pre_expand "calculate_sympy(snip, True)"
+# snippet \\sympy "Evaluate Sympy" b
+# endsnippet
+
+context "inline_math()"
 snippet 'wolfram (.*?) wolfram:?(\d{,2})' "Evaluate WolframScript" wr
 `!p
 code = 'ToString[' + match.group(1) + ', TeXForm]'
@@ -81,31 +172,35 @@ try:
     result = check_output(['wolframscript', '-code', code], \
                           encoding = 'utf-8', \
                           creationflags = 0x08000000,\
-                          timeout  = int(match.group(2) or 0) or wolframscript_timeout_default).strip()
+                          timeout  = int(match.group(2) or wolframscript_timeout_default)).strip()
 except TimeoutExpired:
     result = ''
-result = sub(r'(\s|\W?)e(?=\W)', r'\g<1>\\e', result) # 改 e 样式
-result = result.replace(r'\, d', r'\d ') # 改微分算子
-snip.rv = result
+snip.rv = process_latex(result)
 `
 endsnippet
 
-context "math()"
+context "display_math() and have_block('wolfram', snip)"
+pre_expand "calculate_wolfram(snip, False, match.group(1))"
+snippet "^wolfram:?(\d{,2})" "Evaluate WolframScript" r
+endsnippet
+
+context "inline_math()"
 snippet '\\wolfram (.*?) \\wolfram:?(\d{,2})' "Evaluate WolframScript" wr
 `!p
-tex = match.group(1).replace(r'\e', r' e')
-tex = tex.replace(r'\d ', r'\, d')
-tex = tex.replace('\\', '\\\\')
+tex = pre_process_latex(match.group(1))
 code = 'ToString[ToExpression["' + tex + '", TeXForm], TeXForm]'
 try:
     result = check_output(['wolframscript', '-code', code], \
                           encoding      = 'utf-8', \
                           creationflags = 0x08000000,\
-                          timeout       = int(match.group(2) or 0) or wolframscript_timeout_default).strip()
+                          timeout       = int(match.group(2) or wolframscript_timeout_default)).strip()
 except TimeoutExpired:
     result = ''
-result = sub(r'(\s|\W?)e(?=\W)', r'\g<1>\\e', result) # 改 e 样式
-result = result.replace(r'\, d', r'\d ') # 改微分算子
-snip.rv = result
+snip.rv = process_latex(result)
 `
+endsnippet
+
+context "display_math() and have_block('wolfram', snip)"
+pre_expand "calculate_wolfram(snip, True, match.group(1))"
+snippet "^\\wolfram:?(\d{,2})" "Evaluate WolframScript" r
 endsnippet
