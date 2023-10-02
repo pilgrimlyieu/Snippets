@@ -1,6 +1,6 @@
 global !p
 
-from mdtex.scopes import math, inline_math, display_math
+from mdtex.scopes import math
 from mdtex.matrix import *
 
 endglobal
@@ -32,7 +32,7 @@ endglobal
 ##### '-': 不填充 0 元素
 ##### 'O': 禁用自动省略号
 ##### '1': 为 0 元素添加 tabstop
-##### '2': 禁用上述 tabstop
+##### '2': 禁用格式 tabstop
 ##### 
 ## }}}
 ### `size` {{{1
@@ -58,10 +58,11 @@ snippet "(?a)\b([mpbBvV]mm\d)" "优化矩阵 Matrix Tip" Ar
 `!p snip.rv = match.group(1)`
 endsnippet
 
-context "inline_math()"
-snippet "(?a)\b(?P<type>[mpbBvV])mm(?P<option>([0idDtTcsoO12_-]*;)?)(?P<size>\d{,2})(\[(?P<content1>.*?)\]|(?P<content2>[^\s]*?))&" "行内矩阵 Inline Matrix" r
+snippet "(?a)\b(?P<type>[mpbBvV])mm(?P<option>([0idDtTcsoO12_-]*;)?)(?P<size>\d{,2})(\[(?P<content1>.*?)\]|(?P<content2>[^\s]*?))&" "矩阵 Matrix" r
 endsnippet
 
-context "display_math()"
-snippet "(?a)\b(?P<type>[mpbBvV])mm(?P<option>([0idDtTcsoO12_-]*;)?)(?P<size>\d{,2})(\[(?P<content1>.*?)\]|(?P<content2>[^\s]*?))&" "行间矩阵 Display Matrix" r
+post_jump "intelligent_generate_matrix(match.group(1), snip)"
+context "math()"
+snippet "([pbBvV])mat\(([1-9]{1,2}[a-zA-Z]{0,2})\)" "矩阵 Matrix" r
+`!p if not snip.c: snip.rv = match.group(2)`
 endsnippet
