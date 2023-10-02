@@ -7,9 +7,9 @@ endglobal
 
 # 矩阵片段
 ## 格式（?xxx? 代表 xxx 可省略）
-### `type` + mm + ?`option`;? + ?`size`? + ?[`content`]&?
+### `form` + mm + ?`option`;? + ?`size`? + ?[`content`]&?
 ## 参数
-### `type` {{{1
+### `form` {{{1
 #### 'm': 无边框矩阵
 #### 'p': 小括号边框矩阵
 #### 'b': 中括号边框矩阵
@@ -27,12 +27,12 @@ endglobal
 ##### 'T': （方阵）下三角矩阵。下三角全为 content。下三角有 tabstop
 ##### 'c': （方阵）常对角矩阵。首行、列全为 content。首行、列有 tabstop
 ##### 's': （方阵）对称矩阵。上三角全为 content。上三角有 tabstop
-##### 'o': （方阵）形成标准 4x4 省略矩阵。未省略内容有 tabstop
 #### 选项
 ##### '-': 不填充 0 元素
-##### 'O': 禁用自动省略号
-##### '1': 为 0 元素添加 tabstop
-##### '2': 禁用格式 tabstop
+##### '.': 禁用自动省略号
+##### '1': 为 0 元素添加 tabstop（共用一个）
+##### '2': 为 0 元素添加 tabstop（各自独立）
+##### '3': 禁用格式 tabstop
 ##### 
 ## }}}
 ### `size` {{{1
@@ -48,7 +48,7 @@ endglobal
 ##### '\r': 行序号
 ##### '\c': 列序号
 ##### '\n': 序号
-##### '#': tabstop（依次作为 tabstop。若无，则全部作为 tabstop）
+##### '#': tabstop（依次作为 tabstop）
 ##### '`\x?`': 用「`」包裹可对序号进行 + - * / 的简单运算
 ## }}}1
 
@@ -58,7 +58,9 @@ snippet "(?a)\b([mpbBvV]mm\d)" "优化矩阵 Matrix Tip" Ar
 `!p snip.rv = match.group(1)`
 endsnippet
 
-snippet "(?a)\b(?P<type>[mpbBvV])mm(?P<option>([0idDtTcsoO12_-]*;)?)(?P<size>\d{,2})(\[(?P<content1>.*?)\]|(?P<content2>[^\s]*?))&" "矩阵 Matrix" r
+post_jump "generate_matrix(match.group('form'), match.group('option'), match.group('size'), match.group('content1') or match.group('content2'), snip)"
+context "math()"
+snippet "(?a)\b(?P<form>[mpbBvV])mm(?P<option>([0idDtTcsoO12_-]*));?(?P<size>\d{,2})(\[(?P<content1>.*?)\]|(?P<content2>[^\s]*?))&" "矩阵 Matrix" r
 endsnippet
 
 post_jump "intelligent_generate_matrix(match.group(1), snip)"
