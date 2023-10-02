@@ -105,6 +105,11 @@ snip.rv = format_categories
 endsnippet
 
 context "text()"
-snippet "^tags: (.+)" "Tags Format" ir
-tags: [`!p snip.rv = match.group(1).replace(",", ", ")`]
+snippet "^tags: ([^[].+)" "Tags Format" ir
+tags: [`!p snip.rv = match.group(1).replace(",", ", ").replace("，", ", ")`]
+endsnippet
+
+context "text()"
+snippet "^tags: \[(.+)\]([^[\]]+)" "Tags Format" ir
+tags: [`!p snip.rv = match.group(1) + ", " + match.group(2).replace(",", ", ").replace("，", ", ")`]
 endsnippet
