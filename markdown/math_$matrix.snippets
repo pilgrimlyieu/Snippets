@@ -1,0 +1,23 @@
+global !p
+
+from mdtex.scopes import math
+from mdtex.matrix import *
+
+endglobal
+
+priority 1
+context "math()"
+snippet "(?a)\b([mpbBvV]mm\d)" "优化矩阵 Matrix Tip" Ar
+`!p snip.rv = match.group(1)`
+endsnippet
+
+post_jump "generate_matrix(match.group('form'), match.group('option'), match.group('size'), match.group('content1') or match.group('content2') or ' ', snip)"
+context "math()"
+snippet "(?a)\b(?P<form>[mpbBvV])mm(?P<option>([0idDtTcCsS123_.-]*));?(?P<size>\d{,2})(\[(?P<content1>.*?)\]|(?P<content2>[^\s]*?))&" "矩阵 Matrix" r
+endsnippet
+
+post_jump "intelligent_generate_matrix(match.group(1), snip)"
+context "math()"
+snippet "([pbBvV])mat\(([1-9]{1,2}[a-zA-Z]{0,2})\)" "矩阵 Matrix" r
+`!p if not snip.c: snip.rv = match.group(2)`
+endsnippet
