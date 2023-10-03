@@ -27,7 +27,8 @@ endglobal
 ##### 'T': （方阵）下三角矩阵。下三角全为 content。下三角有 tabstop
 ##### 'c': （方阵）常对角矩阵。首行、列全为 content。首行、列有 tabstop
 ##### 'c': （方阵）常反对角矩阵。首行、末列全为 content。首行、末列有 tabstop
-##### 's': （方阵）对称矩阵。上三角全为 content。上三角有 tabstop
+##### 's': （方阵）对称矩阵。上三角除除第一个元素对角线全为 content。上三角除除第一个元素对角线上三角有 tabstop
+##### 'S': （方阵）对称矩阵。上三角全为 content。上三角有 tabstop
 #### 选项（加入以下选项代表与默认选项相反）
 ##### '.': （未完成）自动省略号
 ##### '-': 填充 0 元素
@@ -58,9 +59,9 @@ snippet "(?a)\b([mpbBvV]mm\d)" "优化矩阵 Matrix Tip" Ar
 `!p snip.rv = match.group(1)`
 endsnippet
 
-post_jump "generate_matrix(match.group('form'), match.group('option'), match.group('size'), match.group('content1') or match.group('content2'), snip)"
+post_jump "generate_matrix(match.group('form'), match.group('option'), match.group('size'), match.group('content1') or match.group('content2') or ' ', snip)"
 context "math()"
-snippet "(?a)\b(?P<form>[mpbBvV])mm(?P<option>([0idDtTcsoO12_-]*));?(?P<size>\d{,2})(\[(?P<content1>.*?)\]|(?P<content2>[^\s]*?))&" "矩阵 Matrix" r
+snippet "(?a)\b(?P<form>[mpbBvV])(?P<option>([0idDtTcCsS123_.-]*));?(?P<size>\d{,2})(\[(?P<content1>.*?)\]|(?P<content2>[^\s]*?))&" "矩阵 Matrix" r
 endsnippet
 
 post_jump "intelligent_generate_matrix(match.group(1), snip)"
