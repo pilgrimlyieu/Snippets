@@ -61,7 +61,7 @@ endsnippet
 
 post_jump "generate_matrix(match.group('form'), match.group('option'), match.group('size'), match.group('content1') or match.group('content2') or ' ', snip)"
 context "math()"
-snippet "(?a)\b(?P<form>[mpbBvV])(?P<option>([0idDtTcCsS123_.-]*));?(?P<size>\d{,2})(\[(?P<content1>.*?)\]|(?P<content2>[^\s]*?))&" "矩阵 Matrix" r
+snippet "(?a)\b(?P<form>[mpbBvV])mm(?P<option>([0idDtTcCsS123_.-]*));?(?P<size>\d{,2})(\[(?P<content1>.*?)\]|(?P<content2>[^\s]*?))&" "矩阵 Matrix" r
 endsnippet
 
 post_jump "intelligent_generate_matrix(match.group(1), snip)"
