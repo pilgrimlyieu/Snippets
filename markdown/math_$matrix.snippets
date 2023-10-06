@@ -47,7 +47,7 @@ snip.rv = matrix_template(form, matrix, display_math())
 endsnippet
 
 context "math()"
-snippet "(?a)\b(?P<form>[mpbBvV])(?P<n>[a-zA-Z])(?P<v>[a-zA-Z]?)\." "上三角矩阵 Upper Triangular Matrix" r
+snippet "(?a)\but(?P<form>[mpbBvV])(?P<n>[a-zA-Z])(?P<v>[a-zA-Z]?)\." "上三角矩阵 Upper Triangular Matrix" r
 `!p
 form = match.group('form') if match.group('form') != 'm' else ''
 v = match.group('v') or 'a'
@@ -61,7 +61,7 @@ matrix = [
 endsnippet
 
 context "math()"
-snippet "(?a)\b(?P<form>[mpbBvV])(?P<n>[a-zA-Z])(?P<v>[a-zA-Z]?)\." "下三角矩阵 Lower Triangular Matrix" r
+snippet "(?a)\blt(?P<form>[mpbBvV])(?P<n>[a-zA-Z])(?P<v>[a-zA-Z]?)\." "下三角矩阵 Lower Triangular Matrix" r
 `!p
 form = match.group('form') if match.group('form') != 'm' else ''
 v = match.group('v') or 'a'
@@ -82,7 +82,7 @@ endsnippet
 
 context "math()"
 snippet "\b([A-Z])mt" "矩阵 Matrix" r
-`!p snip.rv = "\\mathbf{" + match.group(1) + "}"`
+`!p snip.rv = "\\bm{" + match.group(1) + "}"`
 endsnippet
 
 context "math()"
