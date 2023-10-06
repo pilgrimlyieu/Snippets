@@ -96,7 +96,7 @@ endsnippet
 context "text()"
 snippet "^categories: (.+)" "Categories Format" ir
 `!p
-categories = match.group(1).split(",")
+categories = match.group(1).replace("，", ", ").split(",")
 format_categories = "categories:"
 for category in categories:
     format_categories += "\n  - [" + category.strip() + "]"
