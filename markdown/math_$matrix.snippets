@@ -1,6 +1,6 @@
 global !p
 
-from mdtex.scopes import math
+from mdtex.scopes import math, display_math
 from mdtex.matrix import *
 
 endglobal
@@ -13,11 +13,79 @@ endsnippet
 
 post_jump "generate_matrix(match.group('form'), match.group('option'), match.group('size'), match.group('content1') or match.group('content2') or ' ', snip)"
 context "math()"
-snippet "(?a)\b(?P<form>[mpbBvV])mm(?P<option>([0idDtTcCsS123_.-]*));?(?P<size>\d{,2})(\[(?P<content1>.*?)\]|(?P<content2>[^\s]*?))&" "矩阵 Matrix" r
+snippet "(?a)\b(?P<form>[mpbBvV])mm(?P<option>([0idDtTcCsS123_.-]*;?))(?P<size>\d{,2})(\[(?P<content1>.*?)\]|(?P<content2>[^\s]*?))&" "矩阵 Matrix" r
+endsnippet
+
+context "math()"
+snippet "(?a)\b(?P<form>[mpbBvV])(?P<n1>[a-zA-Z])(?P<n2>[a-zA-Z])(?P<v>[a-zA-Z]?)\." "n1xn2 矩阵 n1xn2 Matrix" r
+`!p
+form = match.group('form') if match.group('form') != 'm' else ''
+v = match.group('v') or 'a'
+matrix = [
+    [v + "_{1 1}", v + "_{1 2}", "\\cdots", v + "_{1 " + match.group('n2') + "}"], 
+    [v + "_{2 1}", v + "_{2 2}", "\\cdots", v + "_{2 " + match.group('n2') + "}"], 
+    ["\\vdots", "\\vdots", "\\ddots", "\\vdots"], 
+    [v + "_{" + match.group('n1') + " 1}", v + "_{" + match.group('n1') + " 2}", "\\cdots", v + "_{" + match.group('n1') + " " + match.group('n2') + "}"]
+]
+snip.rv = matrix_template(form, matrix, display_math())
+`
+endsnippet
+
+context "math()"
+snippet "(?a)\bd(?P<form>[mpbBvV])(?P<n>[a-zA-Z])(?P<v>[a-zA-Z]?)\." "对角矩阵 Diagonal Matrix" r
+`!p
+form = match.group('form') if match.group('form') != 'm' else ''
+v = match.group('v') or 'a'
+matrix = [
+    [v + "_{1 1}", "0", "\\cdots", "0"], 
+    ["0", v + "_{2 2}", "\\cdots", "0"], 
+    ["\\vdots", "\\vdots", "\\ddots", "\\vdots"], 
+    ["0", "0", "\\cdots", v + "_{" + match.group('n') + " " + match.group('n') + "}"]
+]
+snip.rv = matrix_template(form, matrix, display_math())
+`
+endsnippet
+
+context "math()"
+snippet "(?a)\b(?P<form>[mpbBvV])(?P<n>[a-zA-Z])(?P<v>[a-zA-Z]?)\." "上三角矩阵 Upper Triangular Matrix" r
+`!p
+form = match.group('form') if match.group('form') != 'm' else ''
+v = match.group('v') or 'a'
+matrix = [
+    [v + "_{1 1}", v + "_{1 2}", "\\cdots", v + "_{1 " + match.group('n') + "}"], 
+    ["0", v + "_{2 2}", "\\cdots", v + "_{2 " + match.group('n') + "}"], 
+    ["\\vdots", "\\vdots", "\\ddots", "\\vdots"], 
+    ["0", "0", "\\cdots", v + "_{" + match.group('n') + " " + match.group('n') + "}"]
+]
+`
+endsnippet
+
+context "math()"
+snippet "(?a)\b(?P<form>[mpbBvV])(?P<n>[a-zA-Z])(?P<v>[a-zA-Z]?)\." "下三角矩阵 Lower Triangular Matrix" r
+`!p
+form = match.group('form') if match.group('form') != 'm' else ''
+v = match.group('v') or 'a'
+matrix = [
+    [v + "_{1 1}", "0", "\\cdots", "0"], 
+    [v + "_{2 1}", v + "_{2 2}", "\\cdots", "0"], 
+    ["\\vdots", "\\vdots", "\\ddots", "\\vdots"], 
+    [v + "_{" + match.group('n') + " 1}", v + "_{" + match.group('n') + " 2}", "\\cdots", v + "_{" + match.group('n') + " " + match.group('n') + "}"]
+]
+`
 endsnippet
 
 post_jump "intelligent_generate_matrix(match.group(1), snip)"
 context "math()"
 snippet "([pbBvV])mat\(([1-9]{1,2}[a-zA-Z]{0,2})\)" "矩阵 Matrix" r
 `!p if not snip.c: snip.rv = match.group(2)`
+endsnippet
+
+context "math()"
+snippet "\b([A-Z])mt" "矩阵 Matrix" r
+`!p snip.rv = "\\mathbf{" + match.group(1) + "}"`
+endsnippet
+
+context "math()"
+snippet ^tt "转置 Transpose" Ai
+^{\mathrm{T}}
 endsnippet
