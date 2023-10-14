@@ -1,0 +1,50 @@
+global !p
+
+from re import match
+from os import path
+
+def oj_commit(snip):
+    added, updated = [], []
+    committed = 0
+    for content in snip.buffer:
+        if not committed and content != "# Changes to be committed:":
+            continue
+        elif content == "# Changes to be committed:":
+            committed = 1
+            continue
+        elif content == "# Changes not staged for commit:":
+            break
+        if m := match(r"^#\s+new file:\s+OJ/(.*)$", content):
+            added.append(m.group(1))
+        elif m := match(r"^#\s+modified:\s+OJ/(.*)$", content):
+            updated.append(m.group(1))
+    if len(added) == 1 and len(updated) == 0:
+        course = path.dirname(added[0])
+        problem = path.splitext(path.basename(added[0]))[0]
+        result = "Complete \"" + course + " #" + problem + "\""
+    elif len(added) == 0 and len(updated) == 1:
+        course = path.dirname(updated[0])
+        problem = path.splitext(path.basename(updated[0]))[0]
+        result = "${1|Update,Optimize|} \"" + course + " #" + problem + "\""
+    else:
+        result = "$0\n"
+        if len(added):
+            result += "\nComplete:\n"
+        for index, added_file in enumerate(added):
+            course = path.dirname(added_file)
+            problem = path.splitext(path.basename(added_file))[0]
+            result += str(index + 1) + ". \"" + course + " #" + problem + "\"\n"
+        if len(updated):
+            result += "\n${1|Update,Optimize|}:\n"
+        for index, updated_file in enumerate(updated):
+            course = path.dirname(updated_file)
+            problem = path.splitext(path.basename(updated_file))[0]
+            result += str(index + 1) + ". \"" + course + " #" + problem + "\"\n"
+    snip.expand_anon(result)
+
+endglobal
+
+context "snip.line == 0"
+post_jump "oj_commit(snip)"
+snippet oj "Online Judge" b
+endsnippet
