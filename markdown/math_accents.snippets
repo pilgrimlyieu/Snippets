@@ -38,17 +38,18 @@ endsnippet
 
 context "math()"
 snippet "(\b[a-zA-Z0]|\\[a-zA-Z]+)([_^](?:\{\S+\s?\}|[\da-zA-Z]))?(bar|hat|vec)" "拔/帽/向量 Bar/Hat/Vector" Ar
-`!p snip.rv = bar_hat_vec(match.group(3) or match.group(2), match.group(1), match.group(2))`
-endsnippet
-
-context "math()"
-snippet "(?<!\\)\b(\w{2,})([_^](?:\{\S+\s?\}|[\da-zA-Z]))?(bar|hat|vec)" "长拔/帽/向量 Long Bar/Hat/Vector" Ar
-`!p snip.rv = long_bar_hat_vec(match.group(3) or match.group(2), match.group(1), match.group(2))`
+`!p snip.rv = bar_hat_vec(match.group(3), match.group(1), match.group(2))`
 endsnippet
 
 context "math()"
 snippet "((\\(bar|overline|hat|widehat|vec|overrightarrow))\{(.*)\})" "拔/帽/向量 Bar/Hat/Vector" r
 `!p snip.rv = command_swap(match.group(1), *(bars if match.group(2) in bars else hats if match.group(2) in hats else vecs))`
+endsnippet
+
+priority -1
+context "math()"
+snippet "(?<!\\)\b(\w{2,}?)([_^](?:\{\S+\s?\}|[\da-zA-Z]))?(bar|hat|vec)" "长拔/帽/向量 Long Bar/Hat/Vector" Ar
+`!p snip.rv = long_bar_hat_vec(match.group(3), match.group(1), match.group(2))`
 endsnippet
 
 priority 1

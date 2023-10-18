@@ -45,11 +45,31 @@ snippet "(?a)(\D?)\btt" "行间文本 Inline Text" r
 endsnippet
 
 context "text()"
+snippet "(?a)(\D?)\b(alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|omicron|pi|rho|sigma|tau|upsilon|phi|chi|omega|varepsilon|varkappa|vartheta|varpi|varrho|varsigma|varphi)" "行间希腊字母 Inline Greek Letter" r
+`!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ') + \
+              delis_i[deli_i_option][0]`\\`!p snip.rv = ("var" if match.group(2) in special_letters else "") + \
+              match.group(2) + delis_i[deli_i_option][1]` 
+endsnippet
+
+context "text()"
+snippet "(?a)(\D?)\b(Alpha|Beta|Gamma|Delta|Epsilon|Zeta|Eta|Theta|Iota|Kappa|Lambda|Mu|Nu|Xi|Omicron|Pi|Rho|Sigma|Tau|Upsilon|Phi|Chi|Psi|Omega)" "行间大写希腊字母 Inline Uppercase Greek Letter" r
+`!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ') + \
+              delis_i[deli_i_option][0]`\\`!p snip.rv = match.group(2) + delis_i[deli_i_option][1]` 
+endsnippet
+
+context "text()"
 snippet "(?a)(\D?)\bcase" "行间大括号 Inline Cases" r
 `!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ') + \
               delis_i[deli_i_option][0]`\begin{cases} ${1:${VISUAL}} \end{cases}`!p snip.rv = delis_i[deli_i_option][1]` $0
 endsnippet
 
+context "text()"
+snippet "(?a)(\D?)\balign" "行间对齐 Inline Align" r
+`!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ') + \
+              delis_i[deli_i_option][0]`\begin{aligned} ${1:${VISUAL}} \end{aligned}`!p snip.rv = delis_i[deli_i_option][1]` $0
+endsnippet
+
+priority 1
 context "text()"
 snippet case "展示大括号 Display Cases" b
 `!p snip.rv = delis_d[deli_d_option][0]`
@@ -61,12 +81,6 @@ $0
 endsnippet
 
 context "text()"
-snippet "(?a)(\D?)\balign" "行间对齐 Inline Align" r
-`!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ') + \
-              delis_i[deli_i_option][0]`\begin{aligned} ${1:${VISUAL}} \end{aligned}`!p snip.rv = delis_i[deli_i_option][1]` $0
-endsnippet
-
-context "text()"
 snippet align "展示对齐 Display Align" b
 `!p snip.rv = delis_d[deli_d_option][0]`
 \begin{aligned}
@@ -74,17 +88,4 @@ ${1:${VISUAL}}
 \end{aligned}
 `!p snip.rv = delis_d[deli_d_option][1]`
 $0
-endsnippet
-
-context "text()"
-snippet "(?a)(\D?)\b(alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|omicron|pi|rho|sigma|tau|upsilon|phi|chi|omega|varepsilon|varkappa|vartheta|varpi|varrho|varsigma|varphi)" "行间希腊字母 Inline Greek Letter" r
-`!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ') + \
-              delis_i[deli_i_option][0]`\\`!p snip.rv = ("var" if match.group(2) in special_letters else "") + \
-              match.group(2) + delis_i[deli_i_option][1]` 
-endsnippet
-
-context "text()"
-snippet "(?a)(\D?)\b(Alpha|Beta|Gamma|Delta|Epsilon|Zeta|Eta|Theta|Iota|Kappa|Lambda|Mu|Nu|Xi|Omicron|Pi|Rho|Sigma|Tau|Upsilon|Phi|Chi|Psi|Omega)" "行间大写希腊字母 Inline Uppercase Greek Letter" r
-`!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ') + \
-              delis_i[deli_i_option][0]`\\`!p snip.rv = match.group(2) + delis_i[deli_i_option][1]` 
 endsnippet
