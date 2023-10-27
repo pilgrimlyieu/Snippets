@@ -15,7 +15,7 @@ endglobal
 ################################################################
 
 context "text()"
-snippet "(?a)(\D?)\b([a-zA-Z0-9_^+=%\.<>\-]+)(;;|；；)" "行间变量 Inline Variavle" Ar
+snippet "(?a)(\D?)\b([a-zA-Z0-9_^+=%\.<>\-]+)(,,|，，)" "行间变量 Inline Variavle" Ar
 `!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ') + \
               delis_i[deli_i_option][0] + match.group(2) + delis_i[deli_i_option][1]` $0
 endsnippet
