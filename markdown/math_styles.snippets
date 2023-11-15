@@ -17,46 +17,46 @@ endsnippet
 
 context "display_math()"
 snippet cbox "定理盒子 Theorem Box" w
-\fcolorbox{#ff69b4}{trasparent}{$$1$}$0
+\fcolorbox{#ff69b4}{trasparent}{$${1:${VISUAL}}$}$0
 endsnippet
 
 context "math()"
-snippet "(\w*)rm" "直立罗马体 Upright Roman Font" r
+snippet "([\\\w]*)rm" "直立罗马体 Upright Roman Font" r
 \mathrm{${1:`!p snip.rv = match.group(1)`}}$0
 endsnippet
 
 context "math()"
-snippet "(\w*)bb" "缕空粗体 Blank Bold Font" r
+snippet "([\\\w]*)bb" "缕空粗体 Blank Bold Font" r
 \mathbb{${1:`!p snip.rv = match.group(1)`}}$0
 endsnippet
 
 context "math()"
-snippet "(\w*)bf" "直立粗体 Upright Bold Font" r
+snippet "([\\\w]*)bf" "直立粗体 Upright Bold Font" r
 \mathbf{${1:`!p snip.rv = match.group(1)`}}$0
 endsnippet
 
 context "math()"
-snippet "(\w*)cal" "手写体 Calligraphic Font" r
+snippet "([\\\w]*)cal" "手写体 Calligraphic Font" r
 \mathcal{${1:`!p snip.rv = match.group(1)`}}$0
 endsnippet
 
 context "math()"
-snippet "(\w*)it" "意大利斜体 Italic Font" r
+snippet "([\\\w]*)it" "意大利斜体 Italic Font" r
 \mathit{${1:`!p snip.rv = match.group(1)`}}$0
 endsnippet
 
 context "math()"
-snippet "(\w*)sf" "直立无衬线字体 Upright Sans Serif Font" r
+snippet "([\\\w]*)sf" "直立无衬线字体 Upright Sans Serif Font" r
 \mathsf{${1:`!p snip.rv = match.group(1)`}}$0
 endsnippet
 
 context "math()"
-snippet "(\w*)frak" "哥特字体 Fraktur Font" r
+snippet "([\\\w]*)frak" "哥特字体 Fraktur Font" r
 \mathfrak{${1:`!p snip.rv = match.group(1)`}}$0
 endsnippet
 
 context "math()"
-snippet "(\w*)bm" "数学粗体 Bold Math Font" r
+snippet "([\\\w]*)bm" "数学粗体 Bold Math Font" r
 \bm{${1:`!p snip.rv = match.group(1)`}}$0
 endsnippet
 
