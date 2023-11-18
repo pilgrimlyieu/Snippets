@@ -12,54 +12,50 @@ endglobal
 
 context "inline_math()"
 snippet env "环境 Environment" w
-\begin{${1:environment}} ${2:${VISUAL}} \end{$1} $0
+\begin{${1:environment}} ${2:${VISUAL}} \end{$1}$0
 endsnippet
 
 context "display_math()"
 snippet env "环境 Environment" w
 \begin{${1:environment}}
     ${2:${VISUAL}}
-\end{$1}
-$0
+\end{$1}$0
 endsnippet
 
 context "inline_math()"
 snippet envo "环境（选项） Environment(option)" w
-\begin{${1:environment}}{${2:option}} ${3:${VISUAL}} \end{$1} $0
+\begin{${1:environment}}{${2:option}} ${3:${VISUAL}} \end{$1}$0
 endsnippet
 
 context "display_math()"
 snippet envo "环境（选项） Environment(option)" w
 \begin{${1:environment}}{${2:option}}
     ${3:${VISUAL}}
-\end{$1}
-$0
+\end{$1}$0
 endsnippet
 
 context "inline_math()"
 snippet case "Cases 环境 Cases Environment" w
-\begin{cases} ${1:${VISUAL}} \end{cases} $0
+\begin{cases} ${1:${VISUAL}} \end{cases}$0
 endsnippet
 
 context "display_math()"
 snippet case "Cases 环境 Cases Environment" w
 \begin{cases}
     ${1:${VISUAL}}
-\end{cases}
-$0
+\end{cases}$0
 endsnippet
 
 context "inline_math()"
 snippet align "Aligned 环境 Aligned Environment" w
-\begin{aligned} ${1:${VISUAL}} \end{aligned} $0
+\begin{aligned} ${1:${VISUAL}} \end{aligned}$0
 endsnippet
 
 context "display_math()"
 snippet align "Aligned 环境 Aligned Environment" w
 \begin{aligned}
     ${1:${VISUAL}}
-\end{aligned}
-$0
+\end{aligned}$0
 endsnippet
 
 context "math()"

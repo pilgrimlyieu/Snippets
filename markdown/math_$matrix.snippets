@@ -81,7 +81,7 @@ snippet "([pbBvV])mat\(([1-9]{1,2}[a-zA-Z]{0,2})\)" "矩阵 Matrix" r
 endsnippet
 
 context "math()"
-snippet "\b([\\\w]+)mt" "矩阵 Matrix" r
+snippet "(\\?\w+)mt" "矩阵 Matrix" r
 `!p snip.rv = "\\bm{" + match.group(1) + "}"`
 endsnippet
 
