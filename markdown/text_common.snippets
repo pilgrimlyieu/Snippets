@@ -98,17 +98,12 @@ endsnippet
 context "text()"
 snippet detail "详情 Disclosure" w
 <details>
-${1:<summary>${2}</summary>}
+${1:<summary>$2</summary>}
 
 ${3:${VISUAL}}
 
 </details>
 $0
-endsnippet
-
-context "text()"
-snippet * "斜体 Italics" i
-*${1:${VISUAL}}*$0
 endsnippet
 
 context "text()"
@@ -137,7 +132,7 @@ snippet == "高亮 Mark" i
 endsnippet
 
 context "text()"
-snippet ~~ "删除 Delete" i
+snippet ss "删除 Delete" i
 ~~${1:${VISUAL}}~~$0
 endsnippet
 
@@ -154,25 +149,4 @@ endsnippet
 context "text()"
 snippet "^#([1-6])" "段落 Paragraph" Ar
 `!p snip.rv = '#' * int(match.group(1))` 
-endsnippet
-
-context "text()"
-snippet hr "分节行 Section Line" w
-
-
-<hr class="section">
-
-
-endsnippet
-
-priority 1
-context "text()"
-snippet ** "粗体 Bold" i
-**${1:${VISUAL}}**$0
-endsnippet
-
-priority 2
-context "text()"
-snippet *** "粗斜体 Bold Italics" i
-***${1:${VISUAL}}***$0
 endsnippet
