@@ -16,7 +16,7 @@ endglobal
 # No longer Support automatically add space (in case of BUG and instability)
 context "text()"
 snippet '(?a)(\W?)\blm' "行内公式 Inline Formula" Ar
-`!p snip.rv = match.group(1) + ('' if match.group(1) in before_puncs else ' ') + \
+`!p snip.rv = match.group(1) + ('' if match.group(1) in punctuations else ' ') + \
               delis_i[deli_i_option][0]`$1`!p snip.rv = delis_i[deli_i_option][1]` $0
 endsnippet
 
