@@ -56,6 +56,12 @@ snippet "([\\\w]*)frak" "哥特字体 Fraktur Font" r
 endsnippet
 
 context "math()"
+snippet "([\\\w]*)scr" "花体字 Script Font" r
+\mathscr{${1:`!p snip.rv = match.group(1)`}}$0
+endsnippet
+
+
+context "math()"
 snippet "([\\\w]*)bm" "数学粗体 Bold Math Font" r
 \bm{${1:`!p snip.rv = match.group(1)`}}$0
 endsnippet
