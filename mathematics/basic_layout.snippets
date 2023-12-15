@@ -1,6 +1,6 @@
 global !p
 
-from mdtex.scopes import math, inline_math, display_math, pure_math
+from mdtex.scopes import math, pure_math
 
 endglobal
 
@@ -10,15 +10,9 @@ endglobal
 #                                                              #
 ################################################################
 
-context "inline_math()"
+context "math()"
 snippet \\ "换行 Line Break" Ai
 \\\\ 
-endsnippet
-
-context "display_math()"
-snippet \\ "换行 Line Break" Ai
-\\\\
-
 endsnippet
 
 context "math()"
