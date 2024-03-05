@@ -29,6 +29,16 @@ endglobal
 ################################################################
 
 context "math()"
+snippet TT "真 True" Aw
+\mathbf{T}
+endsnippet
+
+context "math()"
+snippet FF "假 False" Aw
+\mathbf{F}
+endsnippet
+
+context "math()"
 snippet "(?<!\\)\b(yw|sy|and|or|neg)" "逻辑用语 Logical Terms" r
 \\`!p snip.rv = logical_terms[match.group(1)]` 
 endsnippet
