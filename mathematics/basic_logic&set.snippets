@@ -3,11 +3,11 @@ global !p
 from builtin import choose_next
 from mdtex.scopes import math
 
-logical_terms       = {'yw': 'because', 'sy': 'therefore', 'and': 'land', 'or': 'lor', 'neg': 'neg'}
-logical_terms_cycle = ['because', 'therefore', 'land', 'lor', 'neg']
+logical_terms       = {'yw': 'because', 'sy': 'therefore', 'and': 'land', 'or': 'lor', 'not': 'lnot'}
+logical_terms_cycle = ['because', 'therefore', 'land', 'lor', 'lnot']
 
-exists       = ['exist', 'nexists']
-exist_forall = ['exist', 'forall']
+exists       = ['exists', 'nexists']
+exist_forall = ['exists', 'forall']
 
 set_relations_reverse = ['b', 'p']
 set_relations_sub     = ['', 'eq', 'neqq']
@@ -39,7 +39,7 @@ snippet FF "假 False" Aw
 endsnippet
 
 context "math()"
-snippet "(?<!\\)\b(yw|sy|and|or|neg)" "逻辑用语 Logical Terms" r
+snippet "(?<!\\)\b(yw|sy|and|or|not)" "逻辑用语 Logical Terms" r
 \\`!p snip.rv = logical_terms[match.group(1)]` 
 endsnippet
 
@@ -59,11 +59,6 @@ snippet "\\(lor|bigvee)(\s?)/" "或 Or" r
 endsnippet
 
 context "math()"
-snippet not "not" w
-\not
-endsnippet
-
-context "math()"
 snippet |-> "映射 Map" Ai
 \mapsto 
 endsnippet
@@ -75,21 +70,21 @@ endsnippet
 
 context "math()"
 snippet "(?<!\\)\b(exist|EE)" "存在 Exist" Ar
-\exist_{${1:${VISUAL}}},$0
+\exists 
 endsnippet
 
 context "math()"
 snippet "(?<!\\)\b(forall|AA)" "任意 Forall" Ar
-\forall_{${1:${VISUAL}}},$0
+\forall 
 endsnippet
 
 context "math()"
-snippet "\\(exist|nexists)(_(?:[a-zA-Z]|\{[^}]+\}),?)(\s?)/" "存在 & 不存在 Exist & Non-Exist" r
+snippet "\\(exists|nexists)(_(?:[a-zA-Z]|\{[^}]+\}),?)(\s?)/" "存在 & 不存在 Exist & Non-Exist" r
 \\`!p snip.rv = choose_next(match.group(1), exists, 2) + match.group(2) + match.group(3)`
 endsnippet
 
 context "math()"
-snippet "\\(exist|forall)(_(?:[a-zA-Z]|\{[^}]+\}),?)(\s?)" "存在 & 任意 Exist & Forall" r
+snippet "\\(exists|forall)(_(?:[a-zA-Z]|\{[^}]+\}),?)(\s?)" "存在 & 任意 Exist & Forall" r
 \\`!p snip.rv = choose_next(match.group(1), exist_forall, 2) + match.group(2) + match.group(3)`
 endsnippet
 
@@ -100,7 +95,7 @@ endsnippet
 
 context "math()"
 snippet "(?<!\\)\b(empty|kj)" "空集 Empty" r
-\empty
+\empty 
 endsnippet
 
 context "math()"
@@ -145,7 +140,7 @@ endsnippet
 
 context "math()"
 snippet in "属于 In" w
-\in
+\in 
 endsnippet
 
 priority 1

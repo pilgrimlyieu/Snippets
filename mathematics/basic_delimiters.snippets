@@ -50,6 +50,11 @@ snippet "\\\|" "竖括号 Verticals" ir
 endsnippet
 
 context "math()"
+snippet "\\>" "尖括号 Angle Brackets" Air
+\left\langle $1 \right\rangle$0
+endsnippet
+
+context "math()"
 snippet "<([^>])+?>" "Description" r
 \left\lang `!p snip.rv = match.group(1)` \right\rang
 endsnippet
