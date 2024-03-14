@@ -1,0 +1,70 @@
+global !p
+
+from mdtex.scopes import text
+from md.text import *
+from mdtex.variables import *
+
+deli_i_option = 0
+
+endglobal
+
+################################################################
+#                                                              #
+#                            Common                            #
+#                                                              #
+################################################################
+
+# 不再支持自动添加空格（由于 BUG 与不稳定性）
+# No longer Support automatically add space (in case of BUG and instability)
+context "text()"
+snippet '(?a)(\W?)\blm' "行内公式 Inline Formula" Ar
+`!p snip.rv = match.group(1) + ('' if match.group(1) in punctuations else ' ') + \
+              delis_i[deli_i_option][0]`$1`!p snip.rv = delis_i[deli_i_option][1]` $0
+endsnippet
+
+context "text()"
+snippet dm "行间公式 Display Formula" Ab
+`!p snip.rv = delis_d[deli_d_option][0]`
+${1:${VISUAL}}
+`!p snip.rv = delis_d[deli_d_option][1]`
+$0
+endsnippet
+
+context "text()"
+snippet eq "Equation" Ab
+\begin{equation*}
+    ${1:${VISUAL}}
+\end{equation*}
+
+$0
+endsnippet
+
+context "text()"
+snippet eqa "Equation" Ab
+\begin{equation}
+    ${1:${VISUAL}}
+\end{equation}
+
+$0
+endsnippet
+
+context "text()"
+snippet ev "环境 Environment" Ab
+\begin{${1:env}}
+    ${2:${VISUAL}}
+\end{$1}
+endsnippet
+
+context "text()"
+snippet # "节 Section" Ab
+\section{${1:${VISUAL}}}
+
+$0
+endsnippet
+
+context "text()"
+snippet ## "子节 Subsection" Ab
+\subsection{${1:${VISUAL}}}
+
+$0
+endsnippet
