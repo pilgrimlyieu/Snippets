@@ -11,13 +11,13 @@ endglobal
 ################################################################
 
 context "math()"
-snippet color "颜色 Color" Aw
-\textcolor{${1:red}}{${2:${VISUAL}}}$0
+snippet clr "颜色 Color" w
+\textcolor{${1:FF0099}}{${2:${VISUAL}}}$0
 endsnippet
 
 context "display_math()"
 snippet cbox "定理盒子 Theorem Box" w
-\fcolorbox{#ff69b4}{trasparent}{$${1:${VISUAL}}$}$0
+\fcolorbox{#FF69B4}{trasparent}{$${1:${VISUAL}}$}$0
 endsnippet
 
 context "math()"
@@ -59,7 +59,6 @@ context "math()"
 snippet "([\\\w]*)scr" "花体字 Script Font" r
 \mathscr{${1:`!p snip.rv = match.group(1)`}}$0
 endsnippet
-
 
 context "math()"
 snippet "([\\\w]*)bm" "数学粗体 Bold Math Font" r
