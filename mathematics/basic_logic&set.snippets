@@ -158,3 +158,8 @@ context "math()"
 snippet "\\(in|ni)(\s?)/" "属于转换 In Transforamtion" Ar
 \\`!p snip.rv = match.group(1)[::-1] + match.group(2)`
 endsnippet
+
+context "math()"
+snippet "(\||\\mid)" "整除 Exact Devision" r
+`!p snip.rv = choose_next(match.group(1), ['|', '\\mid'], 2)`
+endsnippet
