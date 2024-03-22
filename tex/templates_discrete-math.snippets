@@ -14,8 +14,7 @@ snippet dcm "离散数学作业模板 Discrete Mathematics Homework Template" b
     a4paper
 ]{ctexart}
 
-\usepackage{amsmath}
-\usepackage{amssymb}
+\usepackage{math_basic}
 \usepackage{geometry}
 
 \setmainfont{Times New Roman}
@@ -30,7 +29,7 @@ snippet dcm "离散数学作业模板 Discrete Mathematics Homework Template" b
 
 \title{第 $1 次作业}
 \author{
-    \sffamily 学号：\textbf{`!p snip.rv = personal_infomation["nju_id"]`}\\
+    \sffamily 学号：\textbf{`!p snip.rv = personal_infomation["nju_id"]`}\\\\
     \sffamily 姓名：`!p snip.rv = personal_infomation["name"]`
 }
 \date{\today}
