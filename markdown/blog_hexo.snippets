@@ -36,23 +36,8 @@ pre_expand "front_matter(snip)"
 snippet @ "Template" A
 endsnippet
 
-context "text() and snip.column == 3"
-snippet date "Date" A
-date: 
-endsnippet
-
-context "text() and snip.column == 3"
-snippet datc "Date Create"
-date: `!p snip.rv = get_creation_time(path)`
-endsnippet
-
-context "text() and snip.column == 3"
-snippet datu "Date Update"
-date: `!p snip.rv = get_modification_time(path)`
-endsnippet
-
-context "text() and snip.column == 3"
-snippet datn "Date Now"
+context "text()"
+snippet "date: (.*)" "Date" br
 date: `!p snip.rv = get_now_time()`
 endsnippet
 
