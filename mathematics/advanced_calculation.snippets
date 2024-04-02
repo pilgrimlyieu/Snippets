@@ -7,55 +7,55 @@ endglobal
 
 context "inline_math()"
 snippet sym "SymPy Block" w
-sympy ${1:${VISUAL}} sympy$0
+\begin{sympy} ${1:${VISUAL}} \end{sympy}$0
 endsnippet
 
 context "display_math()"
 snippet sym "SymPy Block" b
-sympy
+\begin{sympy}
 ${1:${VISUAL}}
-sympy$0
+\end{sympy}$0
 endsnippet
 
 context "inline_math()"
 snippet wlf "WolframScript Block" w
-wolfram ${1:${VISUAL}} wolfram$0
+\begin{wolfram} ${1:${VISUAL}} \end{wolfram}$0
 endsnippet
 
 context "display_math()"
 snippet wlf "WolframScript Block" b
-wolfram
+\begin{wolfram}
 ${1:${VISUAL}}
-wolfram$0
+\end{wolfram}$0
 endsnippet
 
 priority 1
 context "inline_math()"
 snippet \sym "SymPy Block" w
-\\sympy ${1:${VISUAL}} \\sympy$0
+\begin{latex_sympy} ${1:${VISUAL}} \end{latex_sympy}$0
 endsnippet
 
 context "display_math()"
 snippet \sym "SymPy Block" b
-\\sympy
+\begin{latex_sympy}
 ${1:${VISUAL}}
-\\sympy$0
+\end{latex_sympy}$0
 endsnippet
 
 context "inline_math()"
 snippet \wlf "WolframScript Block" w
-\\wolfram ${1:${VISUAL}} \\wolfram$0
+\begin{latex_wolfram} ${1:${VISUAL}} \end{latex_wolfram}$0
 endsnippet
 
 context "display_math()"
 snippet \wlf "WolframScript Block" b
-\\wolfram
+\begin{latex_wolfram}
 ${1:${VISUAL}}
-\\wolfram$0
+\end{latex_wolfram}$0
 endsnippet
 
 context "inline_math()"
-snippet 'sympy (.*?) sympy' "Evaluate SymPy" wr
+snippet '\\begin\{sympy\} (.*?) \\end\{sympy\}' "Evaluate SymPy" wr
 `!p
 from sympy import *
 x, y, z, t = symbols('x y z t')
@@ -66,9 +66,9 @@ snip.rv = process_latex(result)
 `
 endsnippet
 
-context "get_block('sympy', snip)"
+context "get_environment('sympy', snip)"
 pre_expand "calculate_sympy(snip)"
-snippet sympy "Evaluate Sympy" b
+snippet \end{sympy} "Evaluate Sympy" b
 endsnippet
 
 # context "inline_math()"
@@ -94,15 +94,15 @@ endsnippet
 # `
 # endsnippet
 
-# context "get_block('sympy', snip)"
+# context "get_environment('sympy', snip)"
 # pre_expand "calculate_sympy(snip, True)"
 # snippet \\sympy "Evaluate Sympy" b
 # endsnippet
 
 context "inline_math()"
-snippet 'wolfram (.*?) wolfram:?(\d{,2})' "Evaluate WolframScript" wr
+snippet '\\begin\{wolfram\} (.*?) \\end\{wolfram\}(\d{,2})' "Evaluate WolframScript" wr
 `!p
-code = 'ToString[' + match.group(1) + ', TeXForm]'
+code = 'ToString[{0}, TeXForm]'.format(match.group(1))
 try:
     result = check_output(['wolframscript', '-code', code], \
                           encoding = 'utf-8', \
@@ -114,16 +114,15 @@ snip.rv = process_latex(result)
 `
 endsnippet
 
-context "get_block('wolfram', snip)"
+context "get_environment('wolfram', snip)"
 pre_expand "calculate_wolfram(snip, False, match.group(1))"
-snippet "^wolfram:?(\d{,2})" "Evaluate WolframScript" r
+snippet '^\s*\\end\{wolfram\}(\d{,2})' "Evaluate WolframScript" r
 endsnippet
 
 context "inline_math()"
-snippet '\\wolfram (.*?) \\wolfram:?(\d{,2})' "Evaluate WolframScript" wr
+snippet '\\begin\{latex_wolfram\} (.*?) \\end\{latex_wolfram\}(\d{,2})' "Evaluate WolframScript" wr
 `!p
-tex = pre_process_latex(match.group(1))
-code = 'ToString[ToExpression["' + tex + '", TeXForm], TeXForm]'
+code = 'ToString[ToExpression["{0}", TeXForm], TeXForm]'.format(pre_process_text(match.group(1)))
 try:
     result = check_output(['wolframscript', '-code', code], \
                           encoding      = 'utf-8', \
@@ -135,7 +134,7 @@ snip.rv = process_latex(result)
 `
 endsnippet
 
-context "get_block('\\wolfram', snip)"
+context "get_environment('latex_wolfram', snip)"
 pre_expand "calculate_wolfram(snip, True, match.group(1))"
-snippet "^\\wolfram:?(\d{,2})" "Evaluate WolframScript" r
+snippet '^\s*\\end{latex_wolfram}(\d{,2})' "Evaluate WolframScript" r
 endsnippet
