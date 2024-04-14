@@ -17,7 +17,7 @@ endsnippet
 
 context "math()"
 snippet "\bpd([a-zA-Z])" "偏导数 Partial Derivative" r
-\dfrac{\pd ${1:${VISUAL}}}{\pd `!p snip.rv = match.group(1)`}$0
+\dfrac{\partial ${1:${VISUAL}}}{\partial `!p snip.rv = match.group(1)`}$0
 endsnippet
 
 context "math()"
@@ -57,13 +57,13 @@ endsnippet
 
 priority 1
 context "math()"
-snippet dd "导数 Derivative" w
+snippet df "导数 Derivative" w
 \dfrac{\d ${1:${VISUAL}}}{\d $2}$0
 endsnippet
 
 context "math()"
-snippet pd "偏导数 Partial Derivative" w
-\dfrac{\pd ${1:${VISUAL}}}{\pd $2}$0
+snippet pf "偏导数 Partial Derivative" w
+\dfrac{\partial ${1:${VISUAL}}}{\partial $2}$0
 endsnippet
 
 context "math()"
@@ -73,5 +73,5 @@ endsnippet
 
 context "math()"
 snippet pp "偏导数 Partial Derivative" w
-\pd 
+\partial 
 endsnippet
