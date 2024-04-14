@@ -21,48 +21,93 @@ snippet cbox "定理盒子 Theorem Box" w
 endsnippet
 
 context "math()"
-snippet "([\\\w]*)rm" "直立罗马体 Upright Roman Font" r
-\mathrm{${1:`!p snip.rv = match.group(1)`}}$0
+snippet "([a-zA-Z]+)rm" "直立罗马体 Upright Roman Font" r
+\mathrm{`!p snip.rv = match.group(1)`}
 endsnippet
 
 context "math()"
-snippet "([\\\w]*)bb" "缕空粗体 Blank Bold Font" r
-\mathbb{${1:`!p snip.rv = match.group(1)`}}$0
+snippet rm "直立罗马体 Upright Roman Font" w
+\mathrm{${1:${VISUAL}}}
 endsnippet
 
 context "math()"
-snippet "([\\\w]*)bf" "直立粗体 Upright Bold Font" r
-\mathbf{${1:`!p snip.rv = match.group(1)`}}$0
+snippet "([a-zA-Z]+)bb" "缕空粗体 Blank Bold Font" r
+\mathbb{`!p snip.rv = match.group(1)`}
 endsnippet
 
 context "math()"
-snippet "([\\\w]*)cal" "手写体 Calligraphic Font" r
-\mathcal{${1:`!p snip.rv = match.group(1)`}}$0
+snippet bb "缕空粗体 Blank Bold Font" w
+\mathbb{${1:${VISUAL}}}
 endsnippet
 
 context "math()"
-snippet "([\\\w]*)it" "意大利斜体 Italic Font" r
-\mathit{${1:`!p snip.rv = match.group(1)`}}$0
+snippet "([a-zA-Z]+)bf" "直立粗体 Upright Bold Font" r
+\mathbf{`!p snip.rv = match.group(1)`}
 endsnippet
 
 context "math()"
-snippet "([\\\w]*)sf" "直立无衬线字体 Upright Sans Serif Font" r
-\mathsf{${1:`!p snip.rv = match.group(1)`}}$0
+snippet bf "直立粗体 Upright Bold Font" w
+\mathbf{${1:${VISUAL}}}
 endsnippet
 
 context "math()"
-snippet "([\\\w]*)frak" "哥特字体 Fraktur Font" r
-\mathfrak{${1:`!p snip.rv = match.group(1)`}}$0
+snippet "([a-zA-Z]+)cal" "手写体 Calligraphic Font" r
+\mathcal{`!p snip.rv = match.group(1)`}
 endsnippet
 
 context "math()"
-snippet "([\\\w]*)scr" "花体字 Script Font" r
-\mathscr{${1:`!p snip.rv = match.group(1)`}}$0
+snippet cal "手写体 Calligraphic Font" w
+\mathcal{${1:${VISUAL}}}
 endsnippet
 
 context "math()"
-snippet "([\\\w]*)bm" "数学粗体 Bold Math Font" r
-\bm{${1:`!p snip.rv = match.group(1)`}}$0
+snippet "([a-zA-Z]+)it" "意大利斜体 Italic Font" r
+\mathit{`!p snip.rv = match.group(1)`}
+endsnippet
+
+context "math()"
+snippet it "意大利斜体 Italic Font" w
+\mathit{${1:${VISUAL}}}
+endsnippet
+
+context "math()"
+snippet "([a-zA-Z]+)sf" "直立无衬线字体 Upright Sans Serif Font" r
+\mathsf{`!p snip.rv = match.group(1)`}
+endsnippet
+
+context "math()"
+snippet sf "直立无衬线字体 Upright Sans Serif Font" w
+\mathsf{${1:${VISUAL}}}
+endsnippet
+
+context "math()"
+snippet "([a-zA-Z]+)frak" "哥特字体 Fraktur Font" r
+\mathfrak{`!p snip.rv = match.group(1)`}
+endsnippet
+
+context "math()"
+snippet frak "哥特字体 Fraktur Font" w
+\mathfrak{${1:${VISUAL}}}
+endsnippet
+
+context "math()"
+snippet "([a-zA-Z]+)scr" "花体字 Script Font" r
+\mathscr{`!p snip.rv = match.group(1)`}
+endsnippet
+
+context "math()"
+snippet scr "花体字 Script Font" w
+\mathscr{${1:${VISUAL}}}
+endsnippet
+
+context "math()"
+snippet "(\\[a-zA-Z]+|[a-zA-Z]+)bm" "数学粗体 Bold Math Font" r
+\bm{`!p snip.rv = match.group(1)`}
+endsnippet
+
+context "math()"
+snippet bm "数学粗体 Bold Math Font" w
+\bm{${1:${VISUAL}}}
 endsnippet
 
 context "math()"
