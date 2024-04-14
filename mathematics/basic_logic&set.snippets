@@ -143,6 +143,11 @@ snippet in "属于 In" w
 \in 
 endsnippet
 
+context "math()"
+snippet "(?<!\\)(\||\\mid)" "整除 Exact Devision" r
+`!p snip.rv = choose_next(match.group(1), ['|', '\\mid'], 2)`
+endsnippet
+
 priority 1
 context "math()"
 snippet "(\\(?:big)?c)(a|u)p(\s?)/" "交集 & 并集 Intersection & Union" Ar
@@ -157,9 +162,4 @@ endsnippet
 context "math()"
 snippet "\\(in|ni)(\s?)/" "属于转换 In Transforamtion" Ar
 \\`!p snip.rv = match.group(1)[::-1] + match.group(2)`
-endsnippet
-
-context "math()"
-snippet "(\||\\mid)" "整除 Exact Devision" r
-`!p snip.rv = choose_next(match.group(1), ['|', '\\mid'], 2)`
 endsnippet
