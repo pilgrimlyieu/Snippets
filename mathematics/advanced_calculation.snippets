@@ -106,7 +106,7 @@ code = 'ToString[{0}, TeXForm]'.format(match.group(1))
 try:
     result = check_output(['wolframscript', '-code', code], \
                           encoding = 'utf-8', \
-                          creationflags = 0x08000000,\
+                          # creationflags = 0x08000000,\
                           timeout  = int(match.group(2) or wolframscript_timeout_default)).strip()
 except TimeoutExpired:
     result = ''
@@ -126,7 +126,7 @@ code = 'ToString[ToExpression["{0}", TeXForm], TeXForm]'.format(pre_process_text
 try:
     result = check_output(['wolframscript', '-code', code], \
                           encoding      = 'utf-8', \
-                          creationflags = 0x08000000,\
+                          # creationflags = 0x08000000,\
                           timeout       = int(match.group(2) or wolframscript_timeout_default)).strip()
 except TimeoutExpired:
     result = ''
