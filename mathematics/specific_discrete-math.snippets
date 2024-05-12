@@ -1,0 +1,16 @@
+global !p
+
+from mdtex.scopes import math
+
+endglobal
+
+context "math()"
+snippet lat "格" w
+(L, \wedge, \vee)
+endsnippet
+
+context "math()"
+snippet blat "有界格" w
+(L, \wedge, \vee, \bm{0}, \bm{1})
+endsnippet
+

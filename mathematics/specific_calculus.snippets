@@ -1,0 +1,10 @@
+global !p
+
+from mdtex.scopes import math
+
+endglobal
+
+context "math()"
+snippet "jiuu([\w'^|(+-]+)" "级数" wr
+\displaystyle\sum_{n=1}^{\infty} `!p snip.rv = match.group(1)`_n
+endsnippet
