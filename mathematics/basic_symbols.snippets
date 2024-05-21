@@ -26,6 +26,11 @@ snippet -. "中心点 Center Dot" Ai
 endsnippet
 
 context "math()"
+snippet o- "Circ" Aw
+\circ 
+endsnippet
+
+context "math()"
 snippet "\\((?:c|v|d)?)dots(\s?)" "省略号转换 Ellipsis Transformation" r
 \\`!p snip.rv = choose_next(match.group(1), dots, 4) + 'dots' + match.group(2)`
 endsnippet

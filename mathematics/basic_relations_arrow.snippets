@@ -70,3 +70,9 @@ context "math()"
 snippet "\\(n?)([Rr]ightarrow|[Ll]eft(?:right)?arrow|implies|impliedby|iff)(\s?)/" "正反箭头转换 Positive & Negative Arrow Transformation" Ar
 \\`!p snip.rv = choose_next(match.group(1), nornots, 2) + match.group(2) + match.group(3)`
 endsnippet
+
+priority 1
+context "math()"
+snippet --> "一致收敛 Uniform Converge" Ai
+\rightrightarrows 
+endsnippet

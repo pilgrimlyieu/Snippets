@@ -63,3 +63,10 @@ context "math()"
 snippet "\\(big|Big|bigg|Bigg)" "Big" r
 \\`!p snip.rv = choose_next(match.group(1), bigs, 4)`
 endsnippet
+
+priority 1
+context "math()"
+snippet || "范数 Norm" i
+\left\lVert $1 \right\rVert$0
+endsnippet
+
