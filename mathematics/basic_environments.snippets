@@ -35,12 +35,24 @@ snippet envo "环境（选项） Environment(option)" w
 endsnippet
 
 context "inline_math()"
-snippet case "Cases 环境 Cases Environment" w
+snippet case "方程组" w
+\left\lbrace\begin{aligned} ${1:${VISUAL}} \end{aligned}\right.$0
+endsnippet
+
+context "display_math()"
+snippet case "方程组" w
+\left\lbrace\begin{aligned}
+    ${1:${VISUAL}}
+\end{aligned}\right.$0
+endsnippet
+
+context "inline_math()"
+snippet cases "Cases 环境 Cases Environment" w
 \begin{cases} ${1:${VISUAL}} \end{cases}$0
 endsnippet
 
 context "display_math()"
-snippet case "Cases 环境 Cases Environment" w
+snippet cases "Cases 环境 Cases Environment" w
 \begin{cases}
     ${1:${VISUAL}}
 \end{cases}$0
