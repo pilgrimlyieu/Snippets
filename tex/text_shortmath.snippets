@@ -4,7 +4,6 @@ from mdtex.scopes import text
 from md.text import punctuations
 from mdtex.variables import *
 
-deli_i_option = 0
 special_letters = ['epsilon', 'phi']
 
 endglobal
@@ -59,7 +58,13 @@ snippet "(?a)(\D?)\b(Alpha|Beta|Gamma|Delta|Epsilon|Zeta|Eta|Theta|Iota|Kappa|La
 endsnippet
 
 context "text()"
-snippet "(?a)(\D?)\bcase" "行间大括号 Inline Cases" r
+snippet "(?a)(\D?)\bcase" "方程组" r
+`!p snip.rv = match.group(1) + ('' if match.group(1) in punctuations else ' ') + \
+              delis_i[deli_i_option][0]`\left\lbrace\begin{aligned} ${1:${VISUAL}} \end{aligned}\right\.`!p snip.rv = delis_i[deli_i_option][1]` $0
+endsnippet
+
+context "text()"
+snippet "(?a)(\D?)\bcases" "行间大括号 Inline Cases" r
 `!p snip.rv = match.group(1) + ('' if match.group(1) in punctuations else ' ') + \
               delis_i[deli_i_option][0]`\begin{cases} ${1:${VISUAL}} \end{cases}`!p snip.rv = delis_i[deli_i_option][1]` $0
 endsnippet
@@ -72,7 +77,16 @@ endsnippet
 
 priority 1
 context "text()"
-snippet case "展示大括号 Display Cases" b
+snippet case "方程组" b
+`!p snip.rv = delis_d[deli_d_option][0]`
+\left\lbrace\begin{aligned}
+    ${1:${VISUAL}}
+\end{aligned}\right.
+`!p snip.rv = delis_d[deli_d_option][1]`
+$0
+endsnippet
+
+snippet cases "展示大括号 Display Cases" b
 `!p snip.rv = delis_d[deli_d_option][0]`
 \begin{cases}
     ${1:${VISUAL}}
