@@ -1,0 +1,26 @@
+global !p
+
+from mdtex.scopes import math
+
+endglobal
+
+context "math()"
+snippet data "数据集 Data Set" w
+\left\lbrace (\bm{x}_1, y_1),\, (\bm{x}_2, y_2),\, \cdots,\, (\bm{x}_m, y_m) \right\rbrace
+endsnippet
+
+context "math()"
+snippet dats "数据集 Data Set" w
+\left\lbrace (\bm{x}_i, y_i) \right\rbrace_{i=1}^m
+endsnippet
+
+context "math()"
+snippet ins "示例 Instance" w
+\bm{x} = (x_1; x_2; \cdots; x_d)
+endsnippet
+
+context "math()"
+snippet inst "示例 Instance" w
+\bm{x}_i = (x_{i1}; x_{i2}; \cdots; x_{id})
+endsnippet
+
