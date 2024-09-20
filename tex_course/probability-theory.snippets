@@ -1,0 +1,20 @@
+global !p
+
+from mdtex.scopes import math
+
+endglobal
+
+context "math()"
+snippet pr "概率 Probability" w
+\Pr
+endsnippet
+
+context "math()"
+snippet ps "概率空间 Probability Space" w
+(\Omega, \Sigma, \Pr)
+endsnippet
+
+context "math()"
+snippet psf "概率空间 Probability Space" w
+(\Omega, \mathcal{F}, \Pr)
+endsnippet
