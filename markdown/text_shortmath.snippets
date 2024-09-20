@@ -60,7 +60,7 @@ endsnippet
 context "text()"
 snippet "(?a)(\D?)\bcase" "方程组" r
 `!p snip.rv = match.group(1) + ('' if match.group(1) in punctuations else ' ') + \
-              delis_i[deli_i_option][0]`\left\lbrace\begin{aligned} ${1:${VISUAL}} \end{aligned}\right\.`!p snip.rv = delis_i[deli_i_option][1]` $0
+              delis_i[deli_i_option][0]`\left\lbrace\begin{aligned} ${1:${VISUAL}} \end{aligned}\right.`!p snip.rv = delis_i[deli_i_option][1]` $0
 endsnippet
 
 context "text()"

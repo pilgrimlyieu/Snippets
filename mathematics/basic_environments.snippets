@@ -71,7 +71,12 @@ snippet align "Aligned 环境 Aligned Environment" w
 endsnippet
 
 context "math()"
-snippet "\\?\btext" "文本环境 Text Environment" r
+snippet "\\?\bte?xt" "文本环境 Text Environment" r
+\text{$1}$0
+endsnippet
+
+context "math()"
+snippet "\\?\btt" "文本环境 Text Environment" r
 \text{$1}$0
 endsnippet
 
