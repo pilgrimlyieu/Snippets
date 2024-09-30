@@ -69,7 +69,14 @@ snippet #2 "子节 Subsection" Ab
 $0
 endsnippet
 
-context "env('enumerate')"
+context "text()"
+snippet #3 "子子节 Subsubsection" Ab
+\subsubsection{$1}
+
+$0
+endsnippet
+
+context "env('enumerate') or env('itemize')"
 snippet - "列表 List" b
 \item 
 endsnippet
