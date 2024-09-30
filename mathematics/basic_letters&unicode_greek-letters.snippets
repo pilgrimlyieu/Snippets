@@ -25,7 +25,7 @@ snippet "(?<!\\)\b(Alpha|Beta|Gamma|Delta|Epsilon|Zeta|Eta|Theta|Iota|Kappa|Lamb
 endsnippet
 
 context "math()"
-snippet "\\(a|b|g|d|z|e|k|i|t|l|m|n|x|u|pi|ps|ph|r|s|o|ve|vp)" "常用希腊字母 Common Greek Letter" r
+snippet "\\(a|b|g|d|z|ep|e|k|i|t|l|m|n|x|u|pi|ps|ph|r|s|o|ve|vp)" "常用希腊字母 Common Greek Letter" r
 \\`!p
 match match.group(1):
     case "a":
@@ -38,6 +38,8 @@ match match.group(1):
         snip.rv = "delta"
     case "z":
         snip.rv = "zeta"
+    case "ep":
+        snip.rv = "epsilon"
     case "e":
         snip.rv = "eta"
     case "k":

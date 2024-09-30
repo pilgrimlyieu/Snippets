@@ -35,6 +35,11 @@ snippet "\\\)" "括号 Parenthesis" Air
 endsnippet
 
 context "math()"
+snippet "\\bb" "LaTeX 专用括号 Parenthesis for LaTeX" Air
+\left( $1 \right) $0
+endsnippet
+
+context "math()"
 snippet "\\\]" "中括号 Bracket" Air
 \left[ $1 \right] $0
 endsnippet
@@ -69,4 +74,3 @@ context "math()"
 snippet || "范数 Norm" i
 \left\lVert $1 \right\rVert$0
 endsnippet
-
