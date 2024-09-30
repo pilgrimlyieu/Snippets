@@ -1,0 +1,15 @@
+global !p
+
+from mdtex.scopes import text
+
+endglobal
+
+# 需使用 `graphicx` 和 `float` 包
+context "text()"
+snippet img "图片 Image" b
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=${1:0.8\textwidth}]{$2}${3:
+    \caption{${4:标题}}}
+\end{figure}
+endsnippet

@@ -1,0 +1,22 @@
+global !p
+
+from mdtex.scopes import text
+
+endglobal
+
+# 需使用 `minted` 包
+context "text()"
+snippet code "代码块 Code Block" b
+% {{{ $1
+\begin{minted}[
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1.2,
+    fontsize=\footnotesize,
+    linenos
+]{${2|python,cpp,c|}}
+$3
+\end{minted}
+% }}}
+$0
+endsnippet
