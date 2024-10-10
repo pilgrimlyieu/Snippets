@@ -1,7 +1,6 @@
 global !p
 
 from mdtex.scopes import text
-from private.info import personal_infomation
 
 endglobal
 
@@ -14,8 +13,9 @@ snippet tmp "作业模板 Homework Template" b
     a4paper
 ]{ctexart}
 
-\usepackage{math_basic}
 \usepackage{geometry}
+\usepackage{math_basic}
+\usepackage{private_information}
 
 \setmainfont{Times New Roman}
 \geometry{
@@ -29,8 +29,8 @@ snippet tmp "作业模板 Homework Template" b
 
 \title{$1}
 \author{
-    \sffamily 学号：\textbf{`!p snip.rv = personal_infomation["nju_id"]`}\\\\
-    \sffamily 姓名：`!p snip.rv = personal_infomation["name"]`
+    \sffamily 学号：\textbf{\PPIStudentID}\\
+    \sffamily 姓名：\PPIName\\
 }
 \date{\today}
 
