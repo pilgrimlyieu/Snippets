@@ -73,7 +73,7 @@ snippet img "图像 Image" w
 endsnippet
 
 context "text()"
-snippet "(?a)\b([a-zA-Z0-9_^+=%\.<>\-]+)(;;|；；)" "行间代码 Inline Code" Ar
+snippet "(?a)\b([a-zA-Z0-9_^+=%\.<>\[\]\(\)\-]+)(;;|；；)" "行间代码 Inline Code" Ar
 \``!p snip.rv = match.group(1)`\` $0
 endsnippet
 
