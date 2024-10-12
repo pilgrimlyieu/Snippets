@@ -10,9 +10,12 @@ endglobal
 #                                                              #
 ################################################################
 
+# #ff0099: 亮粉色
+# #da6904: 橙褐色
+# #05aa94: 青蓝色
 context "math()"
 snippet clr "颜色 Color" w
-\textcolor{${1:FF0099}}{${2:${VISUAL}}}$0
+\textcolor{${1|ff0099,da6904,05aa94|}}{${2:${VISUAL}}}$0
 endsnippet
 
 context "display_math()"
