@@ -20,11 +20,21 @@ snippet psf "概率空间 Probability Space" w
 endsnippet
 
 context "math()"
+snippet ee "期望 Expectation" w
+\mathbb{E} [${1:X}]
+endsnippet
+
+context "math()"
 snippet var "方差 Variance" w
-\operatorname{Var}
+\operatorname{Var} [${1:X}]
 endsnippet
 
 context "math()"
 snippet cov "协方差 Covariance" w
 \operatorname{Cov}
+endsnippet
+
+context "math()"
+snippet ind "指示 Indicator" w
+\left\lbrace 0, 1 \right\rbrace
 endsnippet
