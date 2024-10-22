@@ -6,16 +6,21 @@ endglobal
 
 # 需使用 `minted` 包
 context "text()"
-snippet code "代码块 Code Block" b
-% {{{ $1
-\begin{minted}[
+snippet setminted "minted 设置 minted configure" b
+\setminted{
     frame=lines,
     framesep=2mm,
     breaklines,
     baselinestretch=1.2,
     fontsize=\footnotesize,
     linenos
-]{${2|python,cpp,c|}}
+}
+endsnippet
+
+context "text()"
+snippet code "代码块 Code Block" b
+% {{{ $1
+\begin{minted}{${2|python,cpp,c|}}
 $3
 \end{minted}
 % }}}
