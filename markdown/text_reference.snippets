@@ -1,0 +1,41 @@
+global !p
+
+from mdtex.scopes import text, math
+from mdtex.variables import *
+
+endglobal
+
+context "math()"
+snippet lab "标签 Label" w
+`!p snip.rv = delis_i[deli_i_option][0]`\label{$1}`!p snip.rv = delis_i[deli_i_option][1]`
+endsnippet
+
+context "math()"
+snippet labb "标签 Label" w
+`!p snip.rv = delis_i[deli_i_option][0]`\@label{${1:id}}{${2:label}}`!p snip.rv = delis_i[deli_i_option][1]`
+endsnippet
+
+context "math()"
+snippet labbb "标签 Label" w
+`!p snip.rv = delis_i[deli_i_option][0]`\@@label{${1:id}}{${2:label}}`!p snip.rv = delis_i[deli_i_option][1]`
+endsnippet
+
+context "text()"
+snippet ref "引用 Referemce" w
+`!p snip.rv = delis_i[deli_i_option][0]`\ref{$1}`!p snip.rv = delis_i[deli_i_option][1]` 
+endsnippet
+
+context "text()"
+snippet reff "引用 Referemce" w
+`!p snip.rv = delis_i[deli_i_option][0]`\@ref{${1:id}}{${2:label}}`!p snip.rv = delis_i[deli_i_option][1]`
+endsnippet
+
+context "text()"
+snippet eqr "公式引用 Equation Referemce" w
+`!p snip.rv = delis_i[deli_i_option][0]`\eqref{$1}`!p snip.rv = delis_i[deli_i_option][1]`
+endsnippet
+
+context "text()"
+snippet eqrr "公式引用 Equation Referemce" w
+`!p snip.rv = delis_i[deli_i_option][0]`\@eqref{${1:id}}{${2:label}}`!p snip.rv = delis_i[deli_i_option][1]`
+endsnippet
