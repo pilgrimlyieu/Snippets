@@ -6,15 +6,25 @@ endglobal
 
 context "text()"
 snippet OO "大 O 符号 Big O Notation" w
-\$O(${1|n,1,n^2,\log(n),n\log(n)|})\$ 
+\$O(${1|1,n,n^2,\log(n),n\log(n)|})\$ 
 endsnippet
 
 context "text()"
 snippet OM "大 Omega 符号 Big Omega Notation" w
-\$\Omega(${1|n,1,n^2,\log(n),n\log(n)|})\$ 
+\$\Omega(${1|1,n,n^2,\log(n),n\log(n)|})\$ 
 endsnippet
 
 context "text()"
 snippet TT "大 Theta 符号 Big Theta Notation" w
-\$\Theta(${1|n,1,n^2,\log(n),n\log(n)|})\$ 
+\$\Theta(${1|1,n,n^2,\log(n),n\log(n)|})\$ 
+endsnippet
+
+context "text()"
+snippet red "红 Red" w
+$\textcolor{red}{\text{red}}$ 
+endsnippet
+
+context "text()"
+snippet black "黑 Black" w
+$\textcolor{orange}{\text{black}}$ 
 endsnippet
