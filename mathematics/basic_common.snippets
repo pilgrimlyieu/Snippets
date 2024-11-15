@@ -12,45 +12,65 @@ endglobal
 
 context "math()"
 snippet ,i= "i 取值 Given i" Ai
-,\,i=${1:1}, ${2:2}, \cdots, ${3:n}. $0
+,\,i=${1:1}, ${2:2}, \dots, ${3:n}. $0
 endsnippet
 
 context "math()"
 snippet dot "1, 2, ..., n" w
-$1_1, $1_2, \cdots, $1_n
+$1_1, $1_2, \dots, $1_n
 endsnippet
 
 context "math()"
 snippet dot. "1, 2, ..., n" w
-$1_1,\, $1_2,\, \cdots,\, $1_n
+$1_1,\, $1_2,\, \dots,\, $1_n
+endsnippet
+
+context "math()"
+snippet dot; "1; 2; ...; n" w
+$1_1; $1_2; \dots; $1_n
 endsnippet
 
 context "math()"
 snippet dot_1 "1, ..., n" w
-$1_1, \cdots, $1_n
+$1_1, \dots, $1_n
 endsnippet
 
 context "math()"
 snippet dot_1. "1, ..., n" w
-$1_1,\, \cdots,\, $1_n
+$1_1,\, \dots,\, $1_n
+endsnippet
+
+context "math()"
+snippet dot_1; "1; ...; n" w
+$1_1; \dots; $1_n
 endsnippet
 
 context "math()"
 snippet upp "1, 2, ..., n" w
-$1^1, $1^2, \cdots, $1^n
+$1^1, $1^2, \dots, $1^n
 endsnippet
 
 context "math()"
 snippet upp. "1, 2, ..., n" w
-$1^1,\, $1^2,\, \cdots,\, $1^n
+$1^1,\, $1^2,\, \dots,\, $1^n
+endsnippet
+
+context "math()"
+snippet upp; "1; 2; ...; n" w
+$1^1; $1^2; \dots; $1^n
 endsnippet
 
 context "math()"
 snippet upp_1 "1, ..., n" w
-$1^1, \cdots, $1^n
+$1^1, \dots, $1^n
 endsnippet
 
 context "math()"
 snippet upp_1. "1, ..., n" w
-$1^1,\, \cdots,\, $1^n
+$1^1,\, \dots,\, $1^n
+endsnippet
+
+context "math()"
+snippet upp_1; "1; ...; n" w
+$1^1; \dots; $1^n
 endsnippet
