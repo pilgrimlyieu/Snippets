@@ -1,0 +1,12 @@
+global !p
+
+from mdtex.scopes import text
+
+endglobal
+
+context "text()"
+snippet expdet "展开全部 details 标签" w
+<script>
+document.body.querySelectorAll('details').forEach(e => e.setAttribute('open', true))
+</script>
+endsnippet
