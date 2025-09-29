@@ -1,0 +1,32 @@
+global !p
+
+from mdtex.scopes import text
+
+callout_map = {
+    "n": "NOTE",
+    "a": "ABSTRACT",
+    "i": "INFO",
+    "t": "TODO",
+    "ti": "TIP",
+    "s": "SUCCESS",
+    "q": "QUESTION",
+    "w": "WARNING",
+    "f": "FAILURE",
+    "d": "DANGER",
+    "b": "BUG",
+    "e": "ERROR",
+    "qo": "QUOTE",
+}
+
+endglobal
+
+context "text()"
+snippet "call(n|a|i|t|ti|s|q|w|f|d|b|e|qo)" "Callout" br
+> [!`!p snip.rv = callout_map.get(match.group(0), "NOTE")`]
+${1:${VISUAL:/^/> /gm}}
+endsnippet
+
+context "text()"
+snippet rmcall "Remove Callout" b
+${VISUAL:/^> \[!(NOTE|ABSTRACT|INFO|TODO|TIP|SUCCESS|QUESTION|WARNING|FAILURE|DANGER|BUG|ERROR|QUOTE)\]\s*|^> //gm}
+endsnippet
