@@ -86,6 +86,16 @@ $0
 endsnippet
 
 context "text()"
+snippet cc "代码 Code Block" b
+<!-- {{{ ${1:代码} -->
+\`\`\`${2|bash,rust,python,c,cpp,typescript,javascript|}
+${3:${VISUAL}}
+\`\`\`
+<!-- }}} -->
+$0
+endsnippet
+
+context "text()"
 snippet kbd "按键 Key" w
 <kbd>${1:${VISUAL}}</kbd>$0
 endsnippet
